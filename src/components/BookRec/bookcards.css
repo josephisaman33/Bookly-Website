@@ -1,0 +1,30 @@
+.BookRec{
+    display: grid;
+    grid-template-columns: 350px, 350px, 350px;
+    justify-content: space-evenly;
+  }
+  
+  .bookList{
+    display: static;
+    justify-content: space-around;
+    margin-top: 0rem;
+  }
+  
+  .bookCard{
+    border: 0px solid black;
+    float: left;
+    margin: 1rem;
+    width: fit-content;
+    transition: transform 200ms ease-in;
+  
+  }
+  
+  .bookCard:hover{
+    transform: translateY(-0.5rem);
+    box-shadow: 0.5rem 1.5rem 1.5rem #bbb;
+  }
+  
+  .bookImage{
+    max-width: 10rem;
+    height: fit-content;
+  }

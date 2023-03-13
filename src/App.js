@@ -7,7 +7,7 @@ import BookRec from './BookRec';
 import Library from './Library';
 import Reflection from './Reflection';
 import Account from './Account';
-import NavBar from './NavBar';
+import NavBar from './components/NavBar';
 import {Routes, Route} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
