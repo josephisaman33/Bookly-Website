@@ -11,7 +11,7 @@ function NavBar() {
         <Container>
           <Navbar.Brand href="home">Navbar</Navbar.Brand>
           <Nav className="me-auto">
-          <Nav.Link href="landing">Landing</Nav.Link>
+          <Nav.Link href="/">Landing</Nav.Link>
             <Nav.Link href="home">Home</Nav.Link>
             <Nav.Link href="bookshelf">Bookshelf</Nav.Link>
             <Nav.Link href="bookrec">Book Recommendation</Nav.Link>
