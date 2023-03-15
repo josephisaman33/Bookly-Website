@@ -17,9 +17,7 @@ def reviews(request):
                                 port="5432")
         cursor = db.cursor()
 
-        sql1 = """
-        insert into reflection values ('1','"""+reflection+"""',"""+stars+""","""+name+""");
-         """
+        sql1 = "insert into reflection values ('1','"+reflection+"',"+stars+",'"+name+"');"
         sql2 = """
          update books set b_rating=(select avg(rating) from reflection where b_no='"""+id+"""') where 1=1;
         """
