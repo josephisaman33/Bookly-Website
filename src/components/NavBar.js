@@ -7,6 +7,10 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 function NavBar() {
+  const handleSubmit = event => {
+    event.preventDefault();
+    alert('You have submitted the form.')
+  }
   return (
     <>
       <Navbar bg="DarkPurple" variant="dark">
@@ -22,20 +26,20 @@ function NavBar() {
             <Nav.Link href="account">Account</Nav.Link>
           </Nav>
         </Container>
-      <Form className="d-flex">
+      <Form onSubmit={handleSubmit} className="d-flex">
         <Form.Control
           type="search"
           placeholder="Find a Book"
           className="me-2"
           aria-label="Search"
           />
-        <Button variant="info">Search</Button> 
+        <Button type="submit" variant="info">Search</Button> 
       </Form>
       </Navbar>
     </>
   );
 }
-//I want to replace the button's color with a custom color
+//I want to replace with custom color
 /*
 function NavBar() {
     return (
