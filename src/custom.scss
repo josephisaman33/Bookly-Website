@@ -1,7 +1,20 @@
 $theme-colors: (
-  "primary": #0074d9,
-  "primaryP": #741e62
+    "Melon": #daa89b,
+    "RosyBrown": #ae847e,
+    "DarkPurple": #2C0e37,
+    "Purple": #690375,
+    "Mulberry": #cb429f
 );
 
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
+
+/*
+$theme-colors: (
+  "Melon": #DAA89B,
+  "Rosy Brown": #AE847E,
+  "Dark Purple": #2C0E37,
+  "Purple": #690375,
+  "Mulberry": #CB429F
+);
+*/

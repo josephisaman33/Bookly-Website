@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 function NavBar() {
   return (
     <>
-      <Navbar bg="primaryP" variant="light">
+      <Navbar bg="DarkPurple" variant="dark">
         <Container>
           <Navbar.Brand href="home">Navbar</Navbar.Brand>
           <Nav className="me-auto">
@@ -29,13 +29,13 @@ function NavBar() {
           className="me-2"
           aria-label="Search"
           />
-        <Button variant="info">Search</Button>
+        <Button variant="info">Search</Button> 
       </Form>
       </Navbar>
     </>
   );
 }
-
+//I want to replace the button's color with a custom color
 /*
 function NavBar() {
     return (
