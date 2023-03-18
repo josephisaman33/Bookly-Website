@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 function NavBar() {
   return (
     <>
-      <Navbar bg="danger" variant="light">
+      <Navbar bg="primaryP" variant="light">
         <Container>
           <Navbar.Brand href="home">Navbar</Navbar.Brand>
           <Nav className="me-auto">
