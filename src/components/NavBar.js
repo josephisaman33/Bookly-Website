@@ -12,7 +12,7 @@ function NavBar() {
   }
   return (
     <>
-      <Navbar bg="DarkPurple" variant="dark">
+      <Navbar bg="DarkPurple" variant="dark" sticky="top">
         <Container>
           <Navbar.Brand href="home">Navbar</Navbar.Brand>
           <Nav className="me-auto">
