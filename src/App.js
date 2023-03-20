@@ -7,6 +7,7 @@ import BookRec from './BookRec';
 import Library from './Library';
 import Reflection from './Reflection';
 import Account from './Account';
+import Search from './Search';
 import NavBar from './components/NavBar';
 import {Routes, Route} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,6 +25,7 @@ function App() {
         <Route path="/library" element={<Library />} />
         <Route path="/reflection" element={<Reflection />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </div>
   );

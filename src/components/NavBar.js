@@ -33,7 +33,7 @@ function NavBar() {
           className="me-2"
           aria-label="Search"
           />
-        <Button type="submit" variant="info">Search</Button> 
+        <Button type="submit" variant="info" href="search">Search</Button> 
       </Form>
       </Navbar>
     </>
