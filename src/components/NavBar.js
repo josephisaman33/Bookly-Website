@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-
+//import { Link } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -21,7 +20,6 @@ function NavBar() {
             <Nav.Link href="home">Home</Nav.Link>
             <Nav.Link href="bookshelf">Bookshelf</Nav.Link>
             <Nav.Link href="bookrec">Book Recommendation</Nav.Link>
-            <Nav.Link href="library">Library Search</Nav.Link>
             <Nav.Link href="reflection">Reflection</Nav.Link>
             <Nav.Link href="account">Account</Nav.Link>
           </Nav>
