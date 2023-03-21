@@ -14,7 +14,7 @@ function NavBar() {
     <>
       <Navbar bg="DarkPurple" variant="dark" sticky="top">
         <Container>
-          <Navbar.Brand href="home">Navbar</Navbar.Brand>
+          <Navbar.Brand href="home">Bookly</Navbar.Brand>
           <Nav className="me-auto">
           <Nav.Link href="/">Landing</Nav.Link>
             <Nav.Link href="home">Home</Nav.Link>
