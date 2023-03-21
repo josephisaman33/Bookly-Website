@@ -1,0 +1,44 @@
+html {
+    width: 100%;
+}
+
+.banner-container {
+    height: 66vh;
+    background-color: #2C0e37;
+}
+
+.info-container {
+    padding: 80px;
+    height: 700px;
+}
+
+.info-section {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.info-header {
+    font-size: 3rem;
+    padding-bottom: 80px;
+}
+
+.info {
+    padding-top: 50px;
+    padding-left: 20px;
+    margin-right: 50px;
+    width: 50%;
+    height: 300px;
+    text-align: left;
+    float: right;
+    font-size: 24px;
+}
+
+.bookly-pic {
+    width: 30%;
+    margin-left: 280px;
+}
+
+.button-container {
+    height: 160px;
+}
