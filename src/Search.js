@@ -1,11 +1,3 @@
-/*function Search() {
-    return(
-        <div>
-            <h1>Search Results</h1>
-        </div>
-    )
-}
-*/
 import { useState, useEffect } from 'react';
 const App = () => {
     const [posts, setPosts] = useState([]);
