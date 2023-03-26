@@ -27,69 +27,39 @@ function BookRec() {
                         <th colSpan={7}>We Recommend</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style={{verticalAlign: "bottom"}}>
                     <tr>
                         <td>{originals[0]}</td>
-                        <td>TO DO: PREV BUTTON</td>
+                        <td style={{verticalAlign: "middle"}}><button>&#8249;</button></td>
                         <td>{recommendations[0]}</td>
                         <td>{recommendations[1]}</td>
                         <td>{recommendations[2]}</td>
                         <td>{recommendations[3]}</td>
                         <td>{recommendations[4]}</td>
-                        <td>TO DO: NEXT BUTTON</td>
+                        <td style={{verticalAlign: "middle"}}><button>&#8250;</button></td>
                     </tr>
                     <tr>
                         <td>{originals[1]}</td>
-                        <td>PREV BUTTON</td>
+                        <td style={{verticalAlign: "middle"}}><button>&#8249;</button></td>
                         <td>{recommendations[5]}</td>
                         <td>{recommendations[6]}</td>
                         <td>{recommendations[7]}</td>
                         <td>{recommendations[8]}</td>
                         <td>{recommendations[9]}</td>
-                        <td>NEXT BUTTON</td>
+                        <td style={{verticalAlign: "middle"}}><button>&#8250;</button></td>
                     </tr>
                     <tr>
                         <td>{originals[2]}</td>
-                        <td>PREV BUTTON</td>
+                        <td style={{verticalAlign: "middle"}}><button>&#8249;</button></td>
                         <td>{recommendations[10]}</td>
                         <td>{recommendations[11]}</td>
                         <td>{recommendations[12]}</td>
                         <td>{recommendations[13]}</td>
                         <td>{recommendations[14]}</td>
-                        <td>NEXT BUTTON</td>
+                        <td style={{verticalAlign: "middle"}}><button>&#8250;</button></td>
                     </tr>
                 </tbody>
             </Table>
-                
-                
-                
-                {/* <div class="row">
-                    <div class="column left" style={{alignItems:'stretch', backgroundColor:"#aaaaaa"}}>
-                        <h2>Based On</h2>
-                        <div style={{ width: '100%', display: "flex"}}>
-                        {basis.map(basis => (
-                            <BookCards
-                                key={basis.id}
-                                image={basis.image}
-                            />
-                        ))[0]}
-                        </div>
-                    </div>
-                    <div class="column right" style={{alignItems:'stretch', backgroundColor:"#bbbbbb"}}>
-                        <h2>We Recommend</h2>
-                        <div style={{ width: '100%', display: "flex"}}>
-                        {contents.map(contents => (
-                            <BookCards
-                                key={contents.id}
-                                image={contents.image}
-                            />
-                        )).slice(0,5)}
-                    </div>
-
-
-                    </div>
-                </div> */}
-
         </div>
     )
 }
