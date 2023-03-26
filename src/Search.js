@@ -21,14 +21,16 @@ const App = () => {
                 //console.log(err.message);
             });
     }, []);
+    console.log(posts)
+    console.log(posts.numFound)
+    console.log((posts.docs))
     //console.log(posts.docs[0])
-    console.log(posts.docs)
     return(null);
 }
 function Search(){
     return(
         <div>
-            <h1>Test:<App></App></h1>
+            <h1>Test<App></App></h1>
         </div>
     );
 }
