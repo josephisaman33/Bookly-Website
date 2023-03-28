@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Cookies from 'universal-cookie';
 const App = () => {
     const [posts, setPosts] = useState([]);
 
@@ -13,11 +14,10 @@ const App = () => {
                 //console.log(err.message);
             });
     }, []);
-    console.log(posts)
-    console.log(posts.numFound)
     console.log((posts.docs))
     //console.log(posts.docs[0])
-    return(null);
+    const cookies = new Cookies();
+    return(cookies.get('myCat'));
 }
 function Search(){
     return(

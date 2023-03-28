@@ -3,8 +3,12 @@ import bookly_banner from "./assets/bookly_banner.png"
 import bookly_pic from "./assets/bookly_pic.png"
 import Hero from "./components/LandingComp/Hero"
 import Button from 'react-bootstrap/Button';
+import Cookies from 'universal-cookie';
 
 function Landing() {
+    const cookies = new Cookies();
+    cookies.set('myCat', 'Pacman', { path: '/' });
+
     return(
         <div className='landing-container'>
             <div className="banner-container">

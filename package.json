@@ -15,6 +15,7 @@
     "react-router-dom": "^6.8.2",
     "react-scripts": "^5.0.1",
     "sass": "^1.59.3",
+    "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
