@@ -17,7 +17,8 @@ function NavBar() {
   */
   const handleSubmit = (event) => {
     const cookies = new Cookies();
-    cookies.set('myCat',event.target[0].value, { path: '/' });
+    cookies.set('usearch',event.target[0].value, { path: '/' })
+    console.log(cookies.get('usearch'))
   }
   return (
     <>
