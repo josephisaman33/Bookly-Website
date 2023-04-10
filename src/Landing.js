@@ -7,8 +7,7 @@ import Cookies from 'universal-cookie';
 
 function Landing() {
     const cookies = new Cookies();
-    cookies.set('myCat', 'Pacman', { path: '/' });
-
+    console.log(cookies.get('usearch'))
     return(
         <div className='landing-container'>
             <div className="banner-container">

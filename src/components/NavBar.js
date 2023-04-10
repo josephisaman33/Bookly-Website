@@ -4,11 +4,21 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
+import Cookies from 'universal-cookie';
 function NavBar() {
-  const handleSubmit = event => {
+  /*const handleSubmit = event => {
     event.preventDefault();
-    alert('You have submitted the form.')
+    const formData = new FormData();
+    formData.append('search', this.search.value);
+    // You can append more fields if needed
+    const cookies = new Cookies();
+    cookies.set('myCat',this.search.value, { path: '/' });
+  }
+  */
+  const handleSubmit = (event) => {
+    const cookies = new Cookies();
+    cookies.set('usearch',event.target[0].value, { path: '/' })
+    console.log(cookies.get('usearch'))
   }
   return (
     <>
@@ -31,12 +41,42 @@ function NavBar() {
           className="me-2"
           aria-label="Search"
           />
-        <Button type="submit" variant="info" href="search">Search</Button> 
+        <Button type="submit" variant="info">Search</Button> 
       </Form>
       </Navbar>
     </>
   );
 }
+export default NavBar;
+/*
+class LoginForm extends Component {
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('username', this.username.value);
+    formData.append('password', this.password.value);
+    // You can append more fields if needed
+    this.sendFormData(formData);
+  }
+
+  sendFormData = (formData) => {
+    axios.post('/api/login', formData)
+      .then(response => console.log(response))
+      .catch(error => console.log(error));
+  }
+
+  render() {
+    return (
+      <form>
+        <input type="text" ref={input => this.username = input} />
+        <input type="password" ref={input => this.password = input} />
+        <button type="submit" onClick={this.handleSubmit}>Submit</button>
+      </form>
+    );
+  }
+}
+*/
+
 //I want to replace with custom color
 /*
 function NavBar() {
@@ -54,5 +94,4 @@ function NavBar() {
     )
 }
 */
-export default NavBar;
 //https://openlibrary.org/search.json?q=Where+The+Crawdads+Sing
