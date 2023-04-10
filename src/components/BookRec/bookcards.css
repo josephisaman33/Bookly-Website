@@ -1,4 +1,4 @@
-  .BookRec{
+  /* .BookRec{
     display: grid;
     grid-template-columns: 350px, 350px, 350px;
     justify-content: space-evenly;
@@ -8,7 +8,13 @@
     display: static;
     justify-content: space-around;
     margin-top: 0vw;
+  } */
+
+  .rec-app > .row {
+    overflow-x: auto;
+    flex-wrap: nowrap;
   }
+
   
   .bookCard{
     border: 0px solid black;
@@ -16,6 +22,7 @@
     margin: 1vw;
     width: fit-content;
     transition: transform 200ms ease-in;
+    cursor: pointer;
   
   }
   
