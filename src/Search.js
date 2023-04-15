@@ -6,6 +6,7 @@ const App = () => {
     const [posts, setPosts] = useState([]);
     const cookies = new Cookies();
     let dummy = cookies.get('usearch').replace(" ", "+")
+    let dummy2="https://www.worldcat.org/search?q="+dummy
     useEffect(() => {
         fetch("https://openlibrary.org/search.json?title=" + dummy) 
           .then((response) => response.json())
@@ -19,12 +20,13 @@ const App = () => {
     
     return(
         <>
-        <Table striped bordered hover>
+        <Table striped borderless hover>
       <thead>
         <tr>
           <th>Book Title</th>
           <th>Author</th>
           <th>Release Date</th>
+          <th>Library Search</th>
         </tr>
       </thead>
       <tbody>
@@ -32,6 +34,7 @@ const App = () => {
           <td>{posts.num_found==cookies.get('sresult') ? posts.docs[0].title : "loading"}</td>
           <td>{posts.num_found==cookies.get('sresult') ? posts.docs[0].author_name[0] : "loading"}</td>
           <td>{posts.num_found==cookies.get('sresult') ? posts.docs[0].publish_date[0] : "loading"}</td>
+          <td><a href={dummy2}>Search Here!</a></td>
         </tr>
       </tbody>
     </Table>

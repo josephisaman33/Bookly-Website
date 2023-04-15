@@ -6,8 +6,6 @@ import Button from 'react-bootstrap/Button';
 import Cookies from 'universal-cookie';
 
 function Landing() {
-    const cookies = new Cookies();
-    console.log(cookies.get('usearch'))
     return(
         <div className='landing-container'>
             <div className="banner-container">
