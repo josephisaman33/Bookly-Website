@@ -20,7 +20,7 @@
     border: 0px solid black;
     float: left;
     margin: 1vw;
-    width: fit-content;
+    width: 12vw;
     transition: transform 200ms ease-in;
     cursor: pointer;
   
@@ -32,6 +32,6 @@
   }
   
   .bookImage{
-    max-width: 10vw;
+    max-width: 12vw;
     height: fit-content;
   }
