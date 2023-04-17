@@ -19,6 +19,29 @@ function BookRec() {
                             />
                           ))
 
+    const basisPopover = (props) => (
+      <Popover id="popover-basic">
+        <Popover.Header>
+          <div>
+            <h4>{props.title}</h4>
+            <h5>{props.author}</h5>
+          </div>
+        </Popover.Header>
+        <Popover.Body>          
+          <h6>Your Reflection</h6>
+          <p>Rating: {props.user_rating}/5<br></br>
+          {props.reflection}
+          </p>
+          <h6>Your Stats</h6>
+          <p>
+          Date Started: {props.date_started}<br></br>
+          Date Finished: {props.date_finished}
+          </p>
+          <Button variant="outline-secondary">Choose a different book</Button>
+        </Popover.Body>
+      </Popover>
+    );                   
+
     const popover = (props) => (
         <Popover id="popover-basic">
           <Popover.Header>
@@ -28,10 +51,9 @@ function BookRec() {
             </div>
           </Popover.Header>
           <Popover.Body>
-            {props.description}
-            <Button variant="outline-secondary">
-              Add to your bookshelf
-            </Button>
+            <h6>Description</h6>
+            <p>{props.description}</p>
+            <Button variant="outline-secondary">Add to your bookshelf</Button>
           </Popover.Body>
         </Popover>
       );
@@ -49,7 +71,7 @@ function BookRec() {
                 </thead>
                 <tbody style={{verticalAlign: "bottom"}}>
                     <tr>
-                        <td>{originals[0]}</td>
+                        <OverlayTrigger trigger="click" placement="right" overlay={basisPopover(basis[0])}><td>{originals[0]}</td></OverlayTrigger>
                         <td style={{verticalAlign: "middle"}}><button>&#8249;</button></td>
                         <OverlayTrigger trigger="click" placement="right" overlay={popover(contents[0])}><td>{recommendations[0]}</td></OverlayTrigger>
                         <OverlayTrigger trigger="click" placement="right" overlay={popover(contents[1])}><td>{recommendations[1]}</td></OverlayTrigger>
@@ -59,7 +81,7 @@ function BookRec() {
                         <td style={{verticalAlign: "middle"}}><button>&#8250;</button></td>
                     </tr>
                     <tr>
-                        <td>{originals[1]}</td>
+                        <OverlayTrigger trigger="click" placement="right" overlay={basisPopover(basis[1])}><td>{originals[1]}</td></OverlayTrigger>
                         <td style={{verticalAlign: "middle"}}><button>&#8249;</button></td>
                         <OverlayTrigger trigger="click" placement="right" overlay={popover(contents[5])}><td>{recommendations[5]}</td></OverlayTrigger>
                         <OverlayTrigger trigger="click" placement="right" overlay={popover(contents[6])}><td>{recommendations[6]}</td></OverlayTrigger>
@@ -69,7 +91,7 @@ function BookRec() {
                         <td style={{verticalAlign: "middle"}}><button>&#8250;</button></td>
                     </tr>
                     <tr>
-                        <td>{originals[2]}</td>
+                        <OverlayTrigger trigger="click" placement="right" overlay={basisPopover(basis[2])}><td>{originals[2]}</td></OverlayTrigger>
                         <td style={{verticalAlign: "middle"}}><button>&#8249;</button></td>
                         <OverlayTrigger trigger="click" placement="right" overlay={popover(contents[10])}><td>{recommendations[10]}</td></OverlayTrigger>
                         <OverlayTrigger trigger="click" placement="right" overlay={popover(contents[11])}><td>{recommendations[11]}</td></OverlayTrigger>
