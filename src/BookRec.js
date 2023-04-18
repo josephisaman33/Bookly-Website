@@ -24,7 +24,7 @@ function BookRec() {
         <Popover.Header>
           <div>
             <h4>{props.title}</h4>
-            <h5>{props.author}</h5>
+            <h6>{props.author}</h6>
           </div>
         </Popover.Header>
         <Popover.Body>          
@@ -47,7 +47,7 @@ function BookRec() {
           <Popover.Header>
             <div>
               <h4>{props.title}</h4>
-              <h5>{props.author}</h5>
+              <h6>{props.author}</h6>
             </div>
           </Popover.Header>
           <Popover.Body>

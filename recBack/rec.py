@@ -70,7 +70,7 @@ def similar_books(book_user_rating, book_id, top_indexes):
 
 k = 50
 movie_id =25954 # Will be changed to ISBN  
-top_n = 3
+top_n = 5
 sliced = Vt.T[:, :k] # representative data
 
 print()

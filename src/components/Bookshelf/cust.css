@@ -1,0 +1,22 @@
+.cust{
+    border: 0 !important;
+    float: left;
+    margin: 1vw;
+    max-width: 12.5vw;
+    transition: transform 200ms ease-in;
+    cursor: pointer;
+  }
+  
+  .cust:hover{
+    transform: translateY(-0.5vw);
+    box-shadow: 0.5vw 1.5vw 1.5vw #bbb;
+  }
+  
+
+
+
+
+  .cont{
+    display: flex;
+    flex-wrap: wrap;
+  }
