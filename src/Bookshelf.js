@@ -44,10 +44,22 @@ function Bookshelf() {
         <div style={{margin: "1.5vw"}}>
             <h1>Bookly Bookshelf</h1>
             <div className='cont'>
-            <Button variant="outline-secondary" size="lg">
-            Add a book
-        </Button>
-              {recommendations}
+                <OverlayTrigger 
+                    trigger="click" 
+                    placement="right" 
+                    overlay={
+                        <Popover id="popover-basic">
+                            <Popover.Body>          
+                                TO DO
+                            </Popover.Body>
+                        </Popover>
+                    }
+                >
+                    <Button variant="outline-secondary" size="lg">
+                    Add a book
+                    </Button>
+                </OverlayTrigger>
+                {recommendations}
             </div>
         </div>
     )
