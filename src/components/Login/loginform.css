@@ -9,42 +9,6 @@
     height: 70vh;
 }
 
-.page {
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #5552A1;
-}
-
-.cover {
-    background-color: white;
-    width: 25em;
-    height: 28em;   
-    position: relative;
-    border-radius: 1em;
-    box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-}
-
-input {
-    border: none;
-    background-color: rgb(229, 226, 226);
-    height: 2.5em;
-    width: 80%;
-    border-radius: 0.25em;
-    text-align: center;
-    padding: 1em;
-}
-
-input:focus {
-    outline-color: rgb(32, 177, 255);
-}
-
 .login-btn {
     width: 40%;
     height: 2.5em;
