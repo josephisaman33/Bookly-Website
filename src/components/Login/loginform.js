@@ -1,8 +1,8 @@
 import { useState } from "react";
-
 import "./loginform.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -44,9 +44,8 @@ const LoginForm = () => {
           </Button>
         </Form>
 
-        <a href="./Register">
-          <h4>Register</h4>
-        </a>
+        <Link to="/register" preventScrollReset={true}>Register</Link>
+
       </div>
     </div>
   );

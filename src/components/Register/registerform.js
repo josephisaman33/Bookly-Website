@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 import "./registerform.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -55,9 +55,7 @@ const RegisterForm = () => {
           </Button>
         </Form>
 
-        <a href="./Login">
-          <h4>Back To Login</h4>
-        </a>
+        <Link to="/login" preventScrollReset={true}>Back to Login</Link>
       </div>
     </div>
   );
