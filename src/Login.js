@@ -1,8 +1,8 @@
+import LoginForm from "./components/Login/loginform";
+
 function Login() {
     return(
-        <div>
-            <h1>Bookly Login Page</h1>
-        </div>
+        <LoginForm></LoginForm>
     )
 }
 

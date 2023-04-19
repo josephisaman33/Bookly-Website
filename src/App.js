@@ -8,6 +8,7 @@ import Library from './Library';
 import Reflection from './Reflection';
 import Account from './Account';
 import Search from './Search';
+import Register from './Register';
 import NavBar from './components/NavBar';
 import {Routes, Route} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,6 +27,7 @@ function App() {
         <Route path="/reflection" element={<Reflection />} />
         <Route path="/account" element={<Account />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );
