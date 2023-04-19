@@ -1,20 +1,35 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "./registerform.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import axios from "axios";
 
 const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
     console.log(email, password, phone);
+    axios
+      .post("/api/register", {
+        email: email,
+        password: password,
+        phone: phone,
+      })
+      .then(function (response) {
+        console.log(response);
+        setRedirect(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
-  return (
+  return redirect?(<Navigate to="/login" />):(
     <div className="login-container">
       <div className="cover">
         <h1>Register</h1>
@@ -55,7 +70,9 @@ const RegisterForm = () => {
           </Button>
         </Form>
 
-        <Link to="/login" preventScrollReset={true}>Back to Login</Link>
+        <Link to="/login" preventScrollReset={true}>
+          Back to Login
+        </Link>
       </div>
     </div>
   );
