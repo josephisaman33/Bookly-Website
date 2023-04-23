@@ -20,32 +20,48 @@ function NavBar() {
     cookies.set('usearch',event.target[0].value, { path: '/' })
     console.log(cookies.get('usearch'))
   }
-  return (
-    <>
-      <Navbar bg="DarkPurple" variant="dark" sticky="top">
-        <Container>
-          <Navbar.Brand href="home">Bookly</Navbar.Brand>
-          <Nav className="me-auto">
-          <Nav.Link href="/">Landing</Nav.Link>
-            <Nav.Link href="home">Home</Nav.Link>
-            <Nav.Link href="bookshelf">Bookshelf</Nav.Link>
-            <Nav.Link href="bookrec">Book Recommendation</Nav.Link>
-            <Nav.Link href="reflection">Reflection</Nav.Link>
-            <Nav.Link href="account">Account</Nav.Link>
-          </Nav>
-        </Container>
-      <Form onSubmit={handleSubmit} className="d-flex">
-        <Form.Control
-          type="search"
-          placeholder="Find a Book"
-          className="me-2"
-          aria-label="Search"
-          />
-        <Button type="submit" variant="info">Search</Button> 
-      </Form>
-      </Navbar>
-    </>
-  );
+  if ( window.location.pathname!=="/" ) {
+    return (
+      <>
+        <Navbar bg="DarkPurple" variant="dark" sticky="top">
+          <Container>
+            <Navbar.Brand href="home">Bookly</Navbar.Brand>
+            <Nav className="me-auto">
+            <Nav.Link href="/">Landing</Nav.Link>
+              <Nav.Link href="home">Home</Nav.Link>
+              <Nav.Link href="bookshelf">Bookshelf</Nav.Link>
+              <Nav.Link href="bookrec">Book Recommendation</Nav.Link>
+              <Nav.Link href="reflection">Reflection</Nav.Link>
+              <Nav.Link href="account">Account</Nav.Link>
+            </Nav>
+          </Container>
+        <Form onSubmit={handleSubmit} className="d-flex">
+          <Form.Control
+            type="search"
+            placeholder="Find a Book"
+            className="me-2"
+            aria-label="Search"
+            />
+          <Button type="submit" variant="info">Search</Button> 
+        </Form>
+        </Navbar>
+      </>
+    );
+  }
+  else {
+    return (
+      <>
+        <Navbar bg="DarkPurple" variant="dark" sticky="top">
+          <Container>
+            <Navbar.Brand href="home">Bookly</Navbar.Brand>
+            <Nav className="me-auto">
+            <Nav.Link href="/">Landing</Nav.Link>
+            </Nav>
+          </Container>
+        </Navbar>
+      </>
+    );
+  }
 }
 export default NavBar;
 /*
