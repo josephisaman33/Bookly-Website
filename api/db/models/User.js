@@ -22,6 +22,7 @@ let User = db.sequelize.define("user", {
   },
 });
 
+//Check Password
 User.prototype.isCorrectPassword = function (password, callback) {
   bcrypt.compare(password, this.password, function (err, result) {
     if (err) return callback(err, false);
@@ -29,6 +30,7 @@ User.prototype.isCorrectPassword = function (password, callback) {
   });
 };
 
+//Prevents password to front-end
 User.prototype.toJSON = function () {
   var values = Object.assign({}, this.get());
 

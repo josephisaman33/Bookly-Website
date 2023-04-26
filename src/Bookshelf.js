@@ -3,6 +3,9 @@ import contents from './components/Bookshelf/bookshelfData';
 import {Popover, OverlayTrigger, Card, Button} from 'react-bootstrap'
 import './components/Bookshelf/cust.css'
 
+//todo: form for adding book (similar to login)
+//get route for returning users books to bookshelf
+//post route for adding books to user's bookshelf
 
 function Bookshelf() {
     var recommendations = contents.map((content) => (
@@ -49,7 +52,8 @@ function Bookshelf() {
                     placement="right" 
                     overlay={
                         <Popover id="popover-basic">
-                            <Popover.Body>          
+                            <Popover.Body>
+                                {/*Pop-up Form*/}          
                                 TO DO
                             </Popover.Body>
                         </Popover>
