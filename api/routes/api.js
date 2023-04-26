@@ -52,9 +52,8 @@ router.post("/login", async function (req, res) {
           user.isCorrectPassword(password, function (err, result) {
             if (result) {
               // STEP 3: Log the user in.
-              // TODO: Create option to check off remember me
 
-              const token = jwt.sign({ email }, config.jwt.secret, {
+              const token = jwt.sign({ email }, process.env.SECRET, {
                 expiresIn: "7d",
               });
 
