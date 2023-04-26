@@ -55,7 +55,6 @@ function NavBar() {
           <Container>
             <Navbar.Brand href="home">Bookly</Navbar.Brand>
             <Nav className="me-auto">
-            <Nav.Link href="/">Landing</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
