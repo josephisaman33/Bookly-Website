@@ -22,7 +22,7 @@ let Books = db.sequelize.define("books", {
   img_url: {
     type: Sequelize.STRING,
     allowNull: true,
-  }
+  },
 });
 
 module.exports = Books;
