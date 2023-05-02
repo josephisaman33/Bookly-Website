@@ -1,3 +1,6 @@
+//login & registration: https://www.bezkoder.com/react-node-express-postgresql/
+//https://expressjs.com/en/guide/routing.html
+
 const express = require("express");
 const router = express.Router();
 
