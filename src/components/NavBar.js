@@ -31,7 +31,7 @@ function NavBar({authenticated}) {
               {authenticated?<Nav.Link href="bookshelf">Bookshelf</Nav.Link>:<></>}
               {authenticated?<Nav.Link href="bookrec">Book Recommendation</Nav.Link>:<></>}
               {authenticated?<Nav.Link href="reflection">Reflection</Nav.Link>:<></>}
-              <Nav.Link href={authenticated?"account":"login"}>{authenticated?"Account":"Sign In"}</Nav.Link>
+              <Nav.Link href={authenticated?"account":"login"}>{authenticated?"Account":"Login"}</Nav.Link>
               {authenticated?<Nav.Link href="logout">Logout</Nav.Link>:<></>}
             </Nav>
           </Container>
