@@ -7,8 +7,8 @@ let Books = db.sequelize.define("books", {
     autoIncrement: true,
     primaryKey: true,
   },
-  isbn10: {
-    type: Sequelize.CHAR(10),
+  isbn13: {
+    type: Sequelize.CHAR(13),
     allowNull: false,
   },
   title: {
