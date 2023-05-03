@@ -20,6 +20,7 @@ const saltRounds = 10;
 // Database Models
 const User = require("../db/models/User");
 const Books = require("../db/models/Books");
+const Bookshelf = require("../db/models/Bookshelf");
 
 // Cryptography
 const jwt = require("jsonwebtoken");

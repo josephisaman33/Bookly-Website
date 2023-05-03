@@ -7,6 +7,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var apiRouter = require("./routes/api");
+var bookshelfRouter = require("./routes/bookshelf");
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use(function (err, req, res, next) {
 });
 
 app.use("/api", apiRouter);
+app.use("/bookshelf", bookshelfRouter);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/index.html"));
