@@ -5,7 +5,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Cookies from 'universal-cookie';
-function NavBar() {
+
+function NavBar({authenticated}) {
   /*const handleSubmit = event => {
     event.preventDefault();
     const formData = new FormData();
@@ -23,14 +24,19 @@ function NavBar() {
       secure: true,
     });
     console.log(cookies.get('usearch'))
+<<<<<<< HEAD
     }
   if ( window.location.pathname!=="/" ) {
+=======
+  }
+>>>>>>> 2ff74812c5c5a88c8aa775f21bb3582a12c6b1fa
     return (
       <>
         <Navbar bg="DarkPurple" variant="dark" sticky="top">
           <Container>
-            <Navbar.Brand href="home">Bookly</Navbar.Brand>
+            <Navbar.Brand href={authenticated?"home":"/"}>Bookly</Navbar.Brand>
             <Nav className="me-auto">
+<<<<<<< HEAD
               <Nav.Link href="bookshelf">Bookshelf</Nav.Link>
               <Nav.Link href="bookrec">Book Recommendation</Nav.Link>
               <Nav.Link href="reflection">Reflection</Nav.Link>
@@ -39,6 +45,17 @@ function NavBar() {
             </Nav>
           </Container>
           <Form onSubmit={handleSubmit} className="d-flex">
+=======
+              {authenticated?<Nav.Link href="home">Home</Nav.Link>:<></>}
+              {authenticated?<Nav.Link href="bookshelf">Bookshelf</Nav.Link>:<></>}
+              {authenticated?<Nav.Link href="bookrec">Book Recommendation</Nav.Link>:<></>}
+              {authenticated?<Nav.Link href="reflection">Reflection</Nav.Link>:<></>}
+              <Nav.Link href={authenticated?"account":"login"}>{authenticated?"Account":"Login"}</Nav.Link>
+              {authenticated?<Nav.Link href="logout">Logout</Nav.Link>:<></>}
+            </Nav>
+          </Container>
+        {authenticated?<Form onSubmit={handleSubmit} className="d-flex">
+>>>>>>> 2ff74812c5c5a88c8aa775f21bb3582a12c6b1fa
           <Form.Control
             type="search"
             placeholder="Find a Book"
@@ -46,25 +63,11 @@ function NavBar() {
             aria-label="Search"
             />
           <Button type="submit" variant="info">Search</Button> 
-        </Form>
+        </Form>:<></>}
         </Navbar>
       </>
     );
   }
-  else {
-    return (
-      <>
-        <Navbar bg="DarkPurple" variant="dark" sticky="top">
-          <Container>
-            <Navbar.Brand href="home">Bookly</Navbar.Brand>
-            <Nav className="me-auto">
-            </Nav>
-          </Container>
-        </Navbar>
-      </>
-    );
-  }
-}
 export default NavBar;
 /*
 class LoginForm extends Component {
