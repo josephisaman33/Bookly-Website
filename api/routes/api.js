@@ -25,17 +25,6 @@ const Bookshelf = require("../db/models/Bookshelf");
 // Cryptography
 const jwt = require("jsonwebtoken");
 
-// Model Initialization
-async function initializeTables() {
-  await db.sequelize.sync({ alter: true });
-}
-
-initializeTables().then((res) => {
-  console.log(
-    "[Sequelize]: Successfully synced tables. Turn this off in production in order to avoid data loss."
-  );
-});
-
 // Routes for non-authenticated users.
 router.post("/login", async function (req, res) {
   let email = req.body.email;
@@ -133,7 +122,7 @@ router.post("/register", async function (req, res) {
 // Secured Routes with Authentication Required.
 const isAuthenticated = require("../middleware");
 
-router.get("/signout", isAuthenticated, function (req, res) {
+router.get("/logout", isAuthenticated, function (req, res) {
   res.clearCookie("token");
   res.sendStatus(200);
 });
