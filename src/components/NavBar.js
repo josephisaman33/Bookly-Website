@@ -17,9 +17,13 @@ function NavBar() {
   */
   const handleSubmit = (event) => {
     const cookies = new Cookies();
-    cookies.set('usearch',event.target[0].value, { path: '/' })
+    cookies.set('usearch', "erjf", {
+      path: '/',
+      sameSite: 'Strict',
+      secure: true,
+    });
     console.log(cookies.get('usearch'))
-  }
+    }
   if ( window.location.pathname!=="/" ) {
     return (
       <>
@@ -27,15 +31,14 @@ function NavBar() {
           <Container>
             <Navbar.Brand href="home">Bookly</Navbar.Brand>
             <Nav className="me-auto">
-            <Nav.Link href="/">Landing</Nav.Link>
-              <Nav.Link href="home">Home</Nav.Link>
               <Nav.Link href="bookshelf">Bookshelf</Nav.Link>
               <Nav.Link href="bookrec">Book Recommendation</Nav.Link>
               <Nav.Link href="reflection">Reflection</Nav.Link>
+              <Nav.Link href="search">Search</Nav.Link>
               <Nav.Link href="account">Account</Nav.Link>
             </Nav>
           </Container>
-        <Form onSubmit={handleSubmit} className="d-flex">
+          <Form onSubmit={handleSubmit} className="d-flex">
           <Form.Control
             type="search"
             placeholder="Find a Book"
