@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
 import "./loginform.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -21,15 +20,15 @@ const LoginForm = () => {
       })
       .then(function (response) {
         console.log(response);
-        setRedirect(true);
+        navigate("/home");
+        window.location.reload();
       })
       .catch(function (error) {
         console.log(error);
       });
   }
 
-  return redirect?(<Navigate to="/home" />):(
-    <div className="login-container">
+  return <div className="login-container">
       <div className="cover">
         <h1>Login</h1>
 
@@ -63,7 +62,6 @@ const LoginForm = () => {
 
       </div>
     </div>
-  );
 };
 
 export default LoginForm;

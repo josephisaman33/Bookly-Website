@@ -23,7 +23,7 @@ function Bookshelf() {
         e.preventDefault();
         try {
             const body = {title};
-            const response = await fetch("http://localhost:5000/bookly", {
+            const response = await fetch("/bookshelf", {
                 method: "POST", 
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(body)
