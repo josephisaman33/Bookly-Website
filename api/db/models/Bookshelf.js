@@ -10,7 +10,13 @@ let Bookshelf = db.sequelize.define("bookshelf", {
   entry: {
     type: Sequelize.STRING,
     allowNull: true,
-  },
-});
+  }
+}, {timestamps:false});
+
+// Bookshelf.associate = (models) => {
+//   models.Bookshelf.belongsTo(models.Books, {
+//     onDelete: "cascade",
+//   });
+// };
 
 module.exports = Bookshelf;
