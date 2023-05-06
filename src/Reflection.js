@@ -3,12 +3,13 @@ import axios from "axios";
 
 function Reflection() {
 
-    const [reflechion, setReflechion] = useState("");
+    const [reflection, setReflection] = useState("");
     const [rating, setRating] = useState(1);
     const [bookName, setBookName] = useState("");
+    const [ratingAvg, setRatingAvg] = useState(null);
 
     const onSubmit = function () {
-        if (reflechion == "") {
+        if (reflection == "") {
             alert("please input your reflection!");
             return;
         }
@@ -16,19 +17,35 @@ function Reflection() {
             alert("please input your favorite!");
             return;
         }
-        axios.post("http://localhost:8080/api/reflechionAndrating/submit",
-            {reflechion,rating,bookName})
+        axios.post("http://localhost:8080/api/reflectionAndrating/submit",
+            {reflection,rating,bookName})
             .then(response => {
                 alert("success");
-                //Reset input data
-                setReflechion("");
-                setRating(1);
-                setBookName("");
+                axios.post("http://localhost:8080/api/reflectionAndrating/getRatingAvg",
+                    bookName, {
+                        headers: {
+                            "Content-Type": "text/plain"
+                        }
+                    })
+                    .then(response => {
+                        setRatingAvg(response.data);
+                    })
+                    .catch(() => {
+                            alert("fail");
+                        }
+                    );
             })
             .catch(() => {
                 alert("fail");
                 }
             );
+    }
+
+    function ReSubmit() {
+        setReflection("");
+        setRating(1);
+        setBookName("");
+        setRatingAvg(null);
     }
 
     return (
@@ -42,8 +59,10 @@ function Reflection() {
             <div class="span4"></div>
             <div class="span4">
               <h2></h2>
-              <h3>Book description</h3>
 
+                {ratingAvg == null ?
+                <div>
+                    <h3>Book description</h3>
                   <br />
                   <input type="hidden" name="id" value="1" />
                   <label>Reflection：</label>
@@ -51,8 +70,8 @@ function Reflection() {
                     name="reflection"
                     class="form-control"
                     placeholder="give your reflection"
-                    value={reflechion}
-                    onChange={event => setReflechion(event.target.value)}>
+                    value={reflection}
+                    onChange={event => setReflection(event.target.value)}>
                   </textarea>
                   <label>Rating：</label>
                   <select name="stars" class="form-control"
@@ -68,13 +87,25 @@ function Reflection() {
                   <textarea
                     name="name"
                     class="form-control"
-                    placeholder="give your favorite"
+                    placeholder="give your book"
                     value={bookName}
                     onChange={event => setBookName(event.target.value)}>
 
                   </textarea>
                   <br />
                 <button onClick={onSubmit}>Submit</button>
+                </div>
+                    :
+                <div>
+                    <br/><br/><br/><br/><br/>
+                    <h2>BookName：{bookName}</h2><br/>
+                    <div style={{fontSize: 30}}>
+                    Average rating:&nbsp;&nbsp;<span style={{color: "red", fontSize: 50}}>{ratingAvg}</span>
+                        <br/><br/><br/>
+                    </div>
+                    <button onClick={ReSubmit}>ReSubmit</button>
+                </div>
+                }
 
             </div>
             <div class="span4"></div>
