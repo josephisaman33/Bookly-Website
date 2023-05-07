@@ -1,13 +1,7 @@
 import {React, useEffect, useState} from 'react'
-// import contents from './components/Bookshelf/bookshelfData';
-import {Popover, OverlayTrigger, Card, Button} from 'react-bootstrap'
+import {Popover, OverlayTrigger, Card, Button, Form} from 'react-bootstrap'
 import './components/Bookshelf/cust.css'
 import axios from 'axios';
-
-// /api/routes/api.js       for like inserting title - writing queries
-//https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
-
-// /src/register/registerform.js     axios .post of function 
 
 
 //todo: form for adding book (similar to login)
@@ -62,23 +56,26 @@ function Bookshelf() {
 
 
 
-    // const [title, setTitle] = useState(". . .");
+    const [entry, setEntry] = useState("");
+    const [pages, setPages] = useState(0);
 
-    // const onSubmitTitle = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         const body = {title};
-    //         const response = await fetch("/bookshelf", {
-    //             method: "POST", 
-    //             headers: {"Content-Type": "application/json"},
-    //             body: JSON.stringify(body)
-    //         });
-
-    //         console.log(response);
-    //     } catch (err) {
-    //         console.error(err.message)
-    //     }
-    // }
+    function handleAddBookSubmit(e) {
+        e.preventDefault();
+        console.log(entry, pages);
+        axios
+            .post("http://localhost:50000/bookshelf", {
+                entry: entry,
+                userId: 1,
+                pages: pages,
+            })
+            .then((response) => {
+                console.log();
+                window.location.reload();
+            })
+            .catch(function (err) {
+                console.error(err.message);
+            });
+    }
 
 
     return(
@@ -92,10 +89,38 @@ function Bookshelf() {
                     overlay={
                         <Popover id="popover-basic">
                             <Popover.Header>Enter Book Title</Popover.Header>
-                            <Popover.Body>          
-                                {/* <form onSubmit={handleSubmit}> 
-                                    <input type='text' value={title} onChange={e => setTitle(e.target.value)}/>
-                                </form> */}
+                            <Popover.Body>  
+                                <Form action='#' className='add-book-form' onSubmit={handleAddBookSubmit}>
+                                    <Form.Group className="mb-3" controlId="formBasicEntry">
+                                        <Form.Label>Book Title</Form.Label>
+                                        <Form.Control 
+                                            type="text" 
+                                            placeholder="(Ex. The Hobbit)"
+                                            value={entry}
+                                            onChange={(e) => setEntry(e.target.value)} 
+                                        />
+                                    </Form.Group>
+
+                                    <Form.Group className="mb-3" controlId="formBasicPages">
+                                        <Form.Label>Pages</Form.Label>
+                                        <Form.Control 
+                                            type="text" 
+                                            placeholder="304"
+                                            value={pages}
+                                            onChange={(e) => setPages(e.target.value)} 
+                                        />
+                                        <Form.Text className='text-muted'>
+                                            This varies based on edition.
+                                        </Form.Text>
+                                    </Form.Group>
+                                    
+                                    <div style={{textAlign:'center'}}>
+                                        <Button variant='primary' type='submit'>
+                                            Add to Bookshelf
+                                        </Button>
+                                    </div>
+
+                                </Form>
                             </Popover.Body>
                         </Popover>
                     }
@@ -104,6 +129,7 @@ function Bookshelf() {
                     Add a book
                     </Button>
                 </OverlayTrigger>
+                
                 {myBookshelf}
             </div>
         </div>

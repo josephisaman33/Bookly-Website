@@ -50,11 +50,12 @@ router.post("/", async (req, res) => {
   const body = req.body;
   let title = req.body.entry;
   let userId = req.body.userId;
+  let pages = req.body.pages;
 
   // Check if the book the user entered is in the database
   try {
     await db.sequelize.query(
-      "SELECT id FROM books WHERE title = :title", {
+      "SELECT id FROM books WHERE LOWER(title) = LOWER(:title)", {
         replacements: { title: title },
         type: QueryTypes.SELECT
       })
@@ -63,11 +64,12 @@ router.post("/", async (req, res) => {
         // If the book exists, create the bookshelf entry and store in database.
         let bookId = book[0].id;
         await db.sequelize.query(
-          "INSERT INTO bookshelves (entry, \"bookId\", \"userId\") VALUES (:title, :bookId, :userId)", {
+          "INSERT INTO bookshelves (entry, \"bookId\", \"userId\", pages) VALUES (:title, :bookId, :userId, :pages)", {
             replacements: {
               title: title,
               bookId: bookId,
-              userId: userId
+              userId: userId,
+              pages: pages
             },
             type: QueryTypes.INSERT
           })

@@ -10,6 +10,10 @@ let Bookshelf = db.sequelize.define("bookshelf", {
   entry: {
     type: Sequelize.STRING,
     allowNull: true,
+  },
+  pages: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
   }
 }, {timestamps:false});
 

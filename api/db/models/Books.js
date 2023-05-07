@@ -7,10 +7,6 @@ let Books = db.sequelize.define("books", {
     autoIncrement: true,
     primaryKey: true,
   },
-  isbn10: {
-    type: Sequelize.CHAR(10),
-    allowNull: false,
-  },
   title: {
     type: Sequelize.STRING,
     allowNull: true,
@@ -35,10 +31,11 @@ module.exports = Books;
 
 
 
-// INSERT INTO books(isbn10, title, author, img_url)
-// VALUES ('0064400468','Freaky Friday','Mary Rodgers','http://images.amazon.com/images/P/0064400468.01.LZZZZZZZ.jpg'),
-//   ('185326041X','The Great Gatsby','F. Scott Fitzgerald','http://images.amazon.com/images/P/185326041X.01.LZZZZZZZ.jpg'),
-//   ('0788789562','The Hobbit','J. R. R. Tolkien','http://images.amazon.com/images/P/0788789562.01.LZZZZZZZ.jpg'),
-//   ('1593080484','Persuasion','Jane Austen','http://images.amazon.com/images/P/1593080484.01.LZZZZZZZ.jpg'),
-//   ('1573226122','Lord of the Flies','William Golding','http://images.amazon.com/images/P/1573226122.01.LZZZZZZZ.jpg');
-
+// INSERT INTO books (img_url, title, author)
+// VALUES ('http://ecx.images-amazon.com/images/I/51%2BwtoqfG6L.jpg','Spider-Verse','Dan Slott'),
+// ('http://ecx.images-amazon.com/images/I/411pakPjvdL.jpg','The Old Man and The Sea','Ernest Hemingway'),
+// ('http://ecx.images-amazon.com/images/I/51ibL6AL-GL.jpg','Pride And Prejudice','Jane Austen'),
+// ('http://ecx.images-amazon.com/images/I/31kc16H5YjL.jpg','The Catcher in the Rye','J. D. Salinger'),
+// ('http://ecx.images-amazon.com/images/I/313cFTb5BFL.jpg','Watchmen','Alan Moore'),
+// ('http://ecx.images-amazon.com/images/I/51ep6WWIpFL.jpg','Batman: The Dark Knight Returns','Frank Miller'),
+// ('http://ecx.images-amazon.com/images/I/51LoG5uYr7L.jpg','Wolverine: Old Man Logan','Mark Millar');
