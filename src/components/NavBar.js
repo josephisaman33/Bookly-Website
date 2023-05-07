@@ -15,15 +15,6 @@ function NavBar() {
     cookies.set('myCat',this.search.value, { path: '/' });
   }
   */
-  const handleSubmit = (event) => {
-    const cookies = new Cookies();
-    cookies.set('usearch', "erjf", {
-      path: '/',
-      sameSite: 'Strict',
-      secure: true,
-    });
-    console.log(cookies.get('usearch'))
-    }
   if ( window.location.pathname!=="/" ) {
     return (
       <>
@@ -38,15 +29,6 @@ function NavBar() {
               <Nav.Link href="account">Account</Nav.Link>
             </Nav>
           </Container>
-          <Form onSubmit={handleSubmit} className="d-flex">
-          <Form.Control
-            type="search"
-            placeholder="Find a Book"
-            className="me-2"
-            aria-label="Search"
-            />
-          <Button type="submit" variant="info">Search</Button> 
-        </Form>
         </Navbar>
       </>
     );
