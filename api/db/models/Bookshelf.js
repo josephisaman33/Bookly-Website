@@ -11,6 +11,10 @@ let Bookshelf = db.sequelize.define("bookshelf", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  // bookmark: {
+  //   type: Sequelize.INTEGER,
+  //   allowNull: true,
+  // },
   pages: {
     type: Sequelize.INTEGER,
     allowNull: true,

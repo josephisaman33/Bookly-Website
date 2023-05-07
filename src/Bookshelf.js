@@ -12,6 +12,7 @@ import axios from 'axios';
 
 function Bookshelf() {
 
+    // Get Books
     const [listOfEntries, setListOfEntries] = useState([]);
 
     useEffect(() => {
@@ -21,47 +22,13 @@ function Bookshelf() {
     }, []);
 
 
-    var myBookshelf = listOfEntries.map((value, key) => { 
-        return <OverlayTrigger 
-        trigger="click" 
-        placement="right" 
-        overlay={
-          <Popover id="popover-basic">
-              <Popover.Header>
-              <div>
-                  <h4>{value.title}</h4>
-                  <h6>{value.author}</h6>
-              </div>
-              </Popover.Header>
-              <Popover.Body>          
-              <h6>Your Reflection</h6>
-              <p>Rating: {value.user_rating}/5<br></br>
-              {value.reflection}
-              </p>
-              <h6>Your Stats</h6>
-              <p>
-              Date Started: {value.date_started}<br></br>
-              Date Finished: {value.date_finished}
-              </p>
-              </Popover.Body>
-          </Popover>
-        }
-      >
-          <Card className="cust">
-              <Card.Img variant="top" src={value.img_url} />
-          </Card>
 
-      </OverlayTrigger>;
-    })
-
-
-
+    // Add Book
     const [entry, setEntry] = useState("");
     const [pages, setPages] = useState(0);
 
     function handleAddBookSubmit(e) {
         e.preventDefault();
-        console.log(entry, pages);
         axios
             .post("http://localhost:50000/bookshelf", {
                 entry: entry,
@@ -77,6 +44,54 @@ function Bookshelf() {
             });
     }
 
+
+
+    // Delete Book
+    const removeBook = (id) => {
+        axios
+            .delete(`http://localhost:50000/bookshelf/${id}`)
+            .then(() => {
+                window.location.reload();
+                console.log("Delete Success");
+            })
+    }
+
+
+    var myBookshelf = listOfEntries.map((value, key) => { 
+        return <OverlayTrigger 
+        key={value.id}
+        trigger="click" 
+        placement="right" 
+        overlay={
+          <Popover id="popover-basic">
+              <Popover.Header>
+              <div>
+                  <h4>{value.title}</h4>
+                  <h6>{value.author}</h6>
+              </div>
+              </Popover.Header>
+
+              <Popover.Body>          
+              <h6>Your Reflection</h6>
+              <p>Rating: {value.user_rating}/5<br></br>
+              {value.reflection}
+              </p>
+              <h6>Your Stats</h6>
+              <p>
+              Date Started: {value.date_started}<br></br>
+              Date Finished: {value.date_finished}
+              </p>
+              <Button variant='danger' size='sm' type='delete' onClick={() => removeBook(value.id)}>Remove</Button>
+              </Popover.Body>
+          </Popover>
+        }
+      >
+          <Card className="cust">
+              <Card.Img variant="top" src={value.img_url} />
+          </Card>
+
+      </OverlayTrigger>;
+    })
 
     return(
         <div style={{margin: "1.5vw"}}>
@@ -137,41 +152,3 @@ function Bookshelf() {
 }
 
 export default Bookshelf;
-
-
-
-
-
-// var myBookshelf = contents.map((content) => (
-//     <OverlayTrigger 
-//       trigger="click" 
-//       placement="right" 
-//       overlay={
-//         <Popover id="popover-basic">
-//             <Popover.Header>
-//             <div>
-//                 <h4>{content.title}</h4>
-//                 <h6>{content.author}</h6>
-//             </div>
-//             </Popover.Header>
-//             <Popover.Body>          
-//             <h6>Your Reflection</h6>
-//             <p>Rating: {content.user_rating}/5<br></br>
-//             {content.reflection}
-//             </p>
-//             <h6>Your Stats</h6>
-//             <p>
-//             Date Started: {content.date_started}<br></br>
-//             Date Finished: {content.date_finished}
-//             </p>
-//             </Popover.Body>
-//         </Popover>
-//       }
-//     >
-
-//         <Card className="cust">
-//             <Card.Img variant="top" src={content.image} />
-//         </Card>
-
-//     </OverlayTrigger>
-//   ))
