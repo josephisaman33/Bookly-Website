@@ -1,6 +1,6 @@
 import { Container, Row, Col} from 'react-bootstrap';
 import NotificationSet from './components/Notifications/Reminders';
-import { PushNotificationSupportedornah, initializePushNotifications, actualNotification } from './components/Notifications/NotificationLook.js';
+//import { PushNotificationSupportedornah, initializePushNotifications, actualNotification } from './components/Notifications/NotificationLook.js';
 
 function Account() {
     return(
@@ -30,12 +30,9 @@ function Account() {
                         <NotificationSet />
                     </Col>
                 </Row>
-                
 
             </Container>
-            <PushNotificationSupportedornah />
-            <initializePushNotifications />
-            <actualNotification />
+
 
         </div>
         
@@ -44,5 +41,8 @@ function Account() {
 
 export default Account;
 
-//  git config --global user.email "you@example.com"
-//git config --global user.name "Your Name"
+/*
+            <PushNotificationSupportedornah />
+            <initializePushNotifications />
+            <actualNotification />
+*/
