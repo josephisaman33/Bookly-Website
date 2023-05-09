@@ -1,12 +1,7 @@
-import {React, useState} from 'react'
-import contents from './components/Bookshelf/bookshelfData';
-import {Popover, OverlayTrigger, Card, Button} from 'react-bootstrap'
+import {React, useEffect, useState} from 'react'
+import {Popover, OverlayTrigger, Card, Button, Form} from 'react-bootstrap'
 import './components/Bookshelf/cust.css'
-
-// /api/routes/api.js       for like inserting title - writing queries
-//https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
-
-// /src/register/registerform.js     axios .post of function 
+import axios from 'axios';
 
 
 //todo: form for adding book (similar to login)
@@ -17,59 +12,86 @@ import './components/Bookshelf/cust.css'
 
 function Bookshelf() {
 
-    const [title, setTitle] = useState(". . .");
+    // Get Books
+    const [listOfEntries, setListOfEntries] = useState([]);
 
-    const onSubmitTitle = async (e) => {
+    useEffect(() => {
+        axios.get("http://localhost:50000/bookshelf").then((response) => {
+            setListOfEntries(response.data);
+        });
+    }, []);
+
+
+
+    // Add Book
+    const [entry, setEntry] = useState("");
+    const [pages, setPages] = useState(0);
+
+    function handleAddBookSubmit(e) {
         e.preventDefault();
-        try {
-            const body = {title};
-            const response = await fetch("/bookshelf", {
-                method: "POST", 
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(body)
+        axios
+            .post("http://localhost:50000/bookshelf", {
+                entry: entry,
+                userId: 1,
+                pages: pages,
+            })
+            .then((response) => {
+                console.log();
+                window.location.reload();
+            })
+            .catch(function (err) {
+                console.error(err.message);
             });
-
-            console.log(response);
-        } catch (err) {
-            console.error(err.message)
-        }
     }
 
 
-    var recommendations = contents.map((content) => (
-        <OverlayTrigger 
-          trigger="click" 
-          placement="right" 
-          overlay={
-            <Popover id="popover-basic">
-                <Popover.Header>
-                <div>
-                    <h4>{content.title}</h4>
-                    <h6>{content.author}</h6>
-                </div>
-                </Popover.Header>
-                <Popover.Body>          
-                <h6>Your Reflection</h6>
-                <p>Rating: {content.user_rating}/5<br></br>
-                {content.reflection}
-                </p>
-                <h6>Your Stats</h6>
-                <p>
-                Date Started: {content.date_started}<br></br>
-                Date Finished: {content.date_finished}
-                </p>
-                </Popover.Body>
-            </Popover>
-          }
-        >
 
-            <Card className="cust">
-                <Card.Img variant="top" src={content.image} />
-            </Card>
+    // Delete Book
+    const removeBook = (id) => {
+        axios
+            .delete(`http://localhost:50000/bookshelf/${id}`)
+            .then(() => {
+                window.location.reload();
+                console.log("Delete Success");
+            })
+    }
 
-        </OverlayTrigger>
-      ))
 
+    var myBookshelf = listOfEntries.map((value, key) => { 
+        return <OverlayTrigger 
+        key={value.id}
+        trigger="click" 
+        placement="right" 
+        overlay={
+          <Popover id="popover-basic">
+              <Popover.Header>
+              <div>
+                  <h4>{value.title}</h4>
+                  <h6>{value.author}</h6>
+              </div>
+              </Popover.Header>
+
+              <Popover.Body>          
+              <h6>Your Reflection</h6>
+              <p>Rating: {value.user_rating}/5<br></br>
+              {value.reflection}
+              </p>
+              <h6>Your Stats</h6>
+              <p>
+              Date Started: {value.date_started}<br></br>
+              Date Finished: {value.date_finished}
+              </p>
+              <Button variant='danger' size='sm' type='delete' onClick={() => removeBook(value.id)}>Remove</Button>
+              </Popover.Body>
+          </Popover>
+        }
+      >
+          <Card className="cust">
+              <Card.Img variant="top" src={value.img_url} />
+          </Card>
+
+      </OverlayTrigger>;
+    })
 
     return(
         <div style={{margin: "1.5vw"}}>
@@ -82,10 +104,38 @@ function Bookshelf() {
                     overlay={
                         <Popover id="popover-basic">
                             <Popover.Header>Enter Book Title</Popover.Header>
-                            <Popover.Body>          
-                                <form onSubmit={onSubmitTitle}> 
-                                    <input type='text' value={title} onChange={e => setTitle(e.target.value)}/>
-                                </form>
+                            <Popover.Body>  
+                                <Form action='#' className='add-book-form' onSubmit={handleAddBookSubmit}>
+                                    <Form.Group className="mb-3" controlId="formBasicEntry">
+                                        <Form.Label>Book Title</Form.Label>
+                                        <Form.Control 
+                                            type="text" 
+                                            placeholder="(Ex. The Hobbit)"
+                                            value={entry}
+                                            onChange={(e) => setEntry(e.target.value)} 
+                                        />
+                                    </Form.Group>
+
+                                    <Form.Group className="mb-3" controlId="formBasicPages">
+                                        <Form.Label>Pages</Form.Label>
+                                        <Form.Control 
+                                            type="text" 
+                                            placeholder="304"
+                                            value={pages}
+                                            onChange={(e) => setPages(e.target.value)} 
+                                        />
+                                        <Form.Text className='text-muted'>
+                                            This varies based on edition.
+                                        </Form.Text>
+                                    </Form.Group>
+                                    
+                                    <div style={{textAlign:'center'}}>
+                                        <Button variant='primary' type='submit'>
+                                            Add to Bookshelf
+                                        </Button>
+                                    </div>
+
+                                </Form>
                             </Popover.Body>
                         </Popover>
                     }
@@ -94,7 +144,8 @@ function Bookshelf() {
                     Add a book
                     </Button>
                 </OverlayTrigger>
-                {recommendations}
+                
+                {myBookshelf}
             </div>
         </div>
     )
