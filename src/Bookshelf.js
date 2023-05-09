@@ -12,19 +12,6 @@ import axios from 'axios';
 
 function Bookshelf() {
 
-    //welcome back message
-    const [email, setEmail] = useState("");
-
-    useEffect(() => {
-        fetch("/api/account").then(async (response) => {
-          if (response.status == 200) {
-            let account = await response.json();
-            console.log(account.user);
-            setEmail(account.user.email);
-          }
-        });
-      });
-
     // Get Books
     const [listOfEntries, setListOfEntries] = useState([]);
 
@@ -108,7 +95,7 @@ function Bookshelf() {
 
     return(
         <div style={{margin: "1.5vw"}}>
-            <h1>Welcome Back, {email}</h1>
+            <h1>Bookly Bookshelf</h1>
 
             <div className='cont'>
                 <OverlayTrigger 

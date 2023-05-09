@@ -20,7 +20,7 @@ const LoginForm = () => {
       })
       .then(function (response) {
         console.log(response);
-        navigate("/bookshelf");
+        navigate("/home");
         window.location.reload();
       })
       .catch(function (error) {

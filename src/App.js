@@ -32,8 +32,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/bookshelf" element={<Bookshelf authenticated={authenticated}/>} />
+        <Route path="/home" element={<Home authenticated={authenticated}/>} />
+        <Route path="/bookshelf" element={<Bookshelf />} />
         <Route path="/bookrec" element={<BookRec />} />
         <Route path="/library" element={<Library />} />
         <Route path="/reflection" element={<Reflection />} />
