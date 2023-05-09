@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Cookies from 'universal-cookie';
-function NavBar({authenticated}) {
+function NavBar() {
   /*const handleSubmit = event => {
     event.preventDefault();
     const formData = new FormData();
@@ -15,26 +15,38 @@ function NavBar({authenticated}) {
     cookies.set('myCat',this.search.value, { path: '/' });
   }
   */
+  if ( window.location.pathname!=="/" ) {
     return (
       <>
         <Navbar bg="DarkPurple" variant="dark" sticky="top">
           <Container>
-            <Navbar.Brand href={authenticated?"bookshelf":"/"}>Bookly</Navbar.Brand>
+            <Navbar.Brand href="home">Bookly</Navbar.Brand>
             <Nav className="me-auto">
-              {authenticated?<Nav.Link href="bookshelf">Bookshelf</Nav.Link>:<></>}
-              {authenticated?<Nav.Link href="bookrec">Book Recommendation</Nav.Link>:<></>}
-              {authenticated?<Nav.Link href="reflection">Reflection</Nav.Link>:<></>}
-              {authenticated?<Nav.Link href="search">Search</Nav.Link>:<></>}
-              <Nav.Link href={authenticated?"account":"login"}>{authenticated?"Account":"Login"}</Nav.Link>
-              {authenticated?<Nav.Link href="logout">Logout</Nav.Link>:<></>}
+              <Nav.Link href="bookshelf">Bookshelf</Nav.Link>
+              <Nav.Link href="bookrec">Book Recommendation</Nav.Link>
+              <Nav.Link href="reflection">Reflection</Nav.Link>
+              <Nav.Link href="search">Search</Nav.Link>
+              <Nav.Link href="account">Account</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
       </>
     );
   }
-
-
+  else {
+    return (
+      <>
+        <Navbar bg="DarkPurple" variant="dark" sticky="top">
+          <Container>
+            <Navbar.Brand href="home">Bookly</Navbar.Brand>
+            <Nav className="me-auto">
+            </Nav>
+          </Container>
+        </Navbar>
+      </>
+    );
+  }
+}
 export default NavBar;
 /*
 class LoginForm extends Component {
