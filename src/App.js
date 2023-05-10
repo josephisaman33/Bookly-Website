@@ -3,7 +3,6 @@ import Landing from "./Landing";
 import Login from "./Login";
 import Home from "./Home";
 import Bookshelf from "./Bookshelf";
-import BookRec from "./BookRec";
 import Library from "./Library";
 import Reflection from "./Reflection";
 import Account from "./Account";
@@ -34,7 +33,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home authenticated={authenticated}/>} />
         <Route path="/bookshelf" element={<Bookshelf />} />
-        <Route path="/bookrec" element={<BookRec />} />
         <Route path="/library" element={<Library />} />
         <Route path="/reflection" element={<Reflection />} />
         <Route path="/account" element={<Account />} />

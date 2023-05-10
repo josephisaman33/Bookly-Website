@@ -22,7 +22,6 @@ function NavBar({authenticated}) {
             <Navbar.Brand href={authenticated?"bookshelf":"/"}>Bookly</Navbar.Brand>
             <Nav className="me-auto">
               {authenticated?<Nav.Link href="bookshelf">Bookshelf</Nav.Link>:<></>}
-              {authenticated?<Nav.Link href="bookrec">Book Recommendation</Nav.Link>:<></>}
               {authenticated?<Nav.Link href="reflection">Reflection</Nav.Link>:<></>}
               {authenticated?<Nav.Link href="search">Search</Nav.Link>:<></>}
               <Nav.Link href={authenticated?"account":"login"}>{authenticated?"Account":"Sign In"}</Nav.Link>
