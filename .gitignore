@@ -6,6 +6,8 @@
 /api/.env
 /.pnp
 .pnp.js
+/book_app2/app1/__pycache__
+/book_app2/db.sqlite3
 
 # testing
 /coverage
