@@ -1,13 +1,12 @@
-/*
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
-//import notifyme from './components/Notifications/NotifyMe';
+import notifyme from './NotifyMe';
 
 export default function NotificationSet() {
   return (
     <Dropdown as={ButtonGroup}>
-      <Button variant="secondary" onclick="notifyme()">Notify me</Button>
+      <Button variant="secondary" onClick={notifyme}>Notify me</Button>
 
       <Dropdown.Toggle split variant="secondary" id="dropdown-split-basic" />
 
@@ -21,4 +20,3 @@ export default function NotificationSet() {
     </Dropdown>
   );
 }
-*/

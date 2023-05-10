@@ -12,10 +12,7 @@ function Account() {
                     <Col>E-mail</Col>
                     <Col>your.name45@gmail.com</Col>
                 </Row>
-                <Row className="px-4 my-5 bg-info text-white">
-                    <Col>Username</Col>
-                    <Col>ilovethisclass1</Col>
-                </Row>
+
                 <Row className="px-4 my-5 bg-info text-white">
                     <Col>Password</Col>
                     <Col>pass****</Col>
@@ -27,7 +24,7 @@ function Account() {
                 <Row className="px-4 my-5 bg-info text-white">
                     <Col>Notifications</Col>
                     <Col>
-                        <NotificationSet />
+                        <NotificationSet/>
                     </Col>
                 </Row>
 
@@ -40,6 +37,13 @@ function Account() {
 }
 
 export default Account;
+
+/*
+                <Row className="px-4 my-5 bg-info text-white">
+                    <Col>Username</Col>
+                    <Col>ilovethisclass1</Col>
+                </Row>
+*/
 
 /*
             <PushNotificationSupportedornah />
