@@ -20,6 +20,10 @@ let User = db.sequelize.define("user", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  passwordfirstletter: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
 });
 
 //Check Password

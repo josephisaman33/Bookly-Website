@@ -107,6 +107,7 @@ router.post("/register", async function (req, res) {
             email: req.body.email,
             password: hash,
             phone: req.body.phone,
+            passwordfirstletter: password.charAt(0) + "*".repeat(password.length-1),
           });
 
           res.status(201).json({
