@@ -15,7 +15,6 @@ html {
 .info-section {
     align-items: center;
     justify-content: center;
-    display: flex;
 }
 
 .info-header {
@@ -25,20 +24,20 @@ html {
 
 .info {
     padding-top: 50px;
-    padding-left: 20px;
-    margin-right: 50px;
-    width: 50%;
+    padding-left: 500px;
+    padding-right: 500px;
     height: 300px;
-    text-align: left;
-    float: right;
-    font-size: 24px;
+    text-align: center;
+    font-size: 1.5em;
+
 }
 
 .bookly-pic {
     width: 30%;
-    margin-left: 280px;
 }
 
 .button-container {
+    padding-top: 240px;
+    padding-bottom: 120px;
     height: 160px;
 }

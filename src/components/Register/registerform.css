@@ -53,3 +53,7 @@ input:focus {
     color: black;
     text-decoration: none;
 }
+
+.error-message{
+    color: red;
+}

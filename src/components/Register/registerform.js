@@ -6,10 +6,14 @@ import Form from "react-bootstrap/Form";
 import axios from "axios";
 
 const RegisterForm = () => {
+  //register states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
+
+  //error & navigation
   const [redirect, setRedirect] = useState(false);
+  const [error, setError] = useState (false);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -26,6 +30,7 @@ const RegisterForm = () => {
       })
       .catch(function (error) {
         console.log(error);
+        setError(true);
       });
   }
 
@@ -38,11 +43,13 @@ const RegisterForm = () => {
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
+              className={error?"is-invalid":""}
               type="email"
               placeholder="Enter email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            {error?<p className="error-message">Email Already Exists</p>:""}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -55,7 +62,7 @@ const RegisterForm = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formPhone">
+          {/* <Form.Group className="mb-3" controlId="formPhone">
             <Form.Label>Phone Number</Form.Label>
             <Form.Control
               type="tel"
@@ -63,7 +70,7 @@ const RegisterForm = () => {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
-          </Form.Group>
+          </Form.Group> */}
 
           <Button variant="primary" type="submit" className="login-btn">
             Register
