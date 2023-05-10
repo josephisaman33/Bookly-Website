@@ -18,7 +18,7 @@ let User = db.sequelize.define("user", {
   },
   phone: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
 });
 

@@ -6,8 +6,12 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const LoginForm = () => {
+  //login states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  //error & navigation
+  const [error, setError] = useState (false);
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -25,6 +29,7 @@ const LoginForm = () => {
       })
       .catch(function (error) {
         console.log(error);
+        setError(true);
       });
   }
 
@@ -32,6 +37,7 @@ const LoginForm = () => {
       <div className="cover">
         <h1>Login</h1>
 
+        {error?<p className="error-message">Email or Password Invalid</p>:""}
         <Form action="#" className="login-form" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
