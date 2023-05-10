@@ -30,10 +30,9 @@ function Account() {
                         <NotificationSet />
                     </Col>
                 </Row>
-                
 
             </Container>
-            
+
 
         </div>
         
@@ -42,9 +41,8 @@ function Account() {
 
 export default Account;
 
-//  git config --global user.email "you@example.com"
-//git config --global user.name "Your Name"
-
-//<PushNotificationSupportedornah />
-//<initializePushNotifications />
-//<actualNotification />
+/*
+            <PushNotificationSupportedornah />
+            <initializePushNotifications />
+            <actualNotification />
+*/

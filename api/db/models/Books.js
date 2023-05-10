@@ -21,11 +21,6 @@ let Books = db.sequelize.define("books", {
   }
 }, {timestamps:false});
 
-// Books.associate = (models) => {
-//   models.Books.hasMany(models.Bookshelf);
-// };
-
-
 
 module.exports = Books;
 

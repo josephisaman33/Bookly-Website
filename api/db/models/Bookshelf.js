@@ -22,10 +22,5 @@ let Bookshelf = db.sequelize.define("bookshelf", {
   }
 }, {timestamps:false});
 
-// Bookshelf.associate = (models) => {
-//   models.Bookshelf.belongsTo(models.Books, {
-//     onDelete: "cascade",
-//   });
-// };
 
 module.exports = Bookshelf;
