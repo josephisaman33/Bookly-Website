@@ -25,7 +25,7 @@ function Bookshelf() {
 
     // Add Book
     const [entry, setEntry] = useState("");
-    const [pages, setPages] = useState(0);
+    const [pages, setPages] = useState(-1);
 
     function handleAddBookSubmit(e) {
         e.preventDefault();
@@ -57,6 +57,17 @@ function Bookshelf() {
     }
 
 
+    // Update Bookmark
+    const [onPage, setOnPage] = useState(0);
+
+    function handleUpdateBookmarkSubmit(e) {
+        e.preventDefault();
+        console.log(onPage);
+        window.location.reload();
+    }
+
+
+
     var myBookshelf = listOfEntries.map((value, key) => { 
         return <OverlayTrigger 
         key={value.id}
@@ -78,6 +89,32 @@ function Bookshelf() {
               </p>
               <h6>Your Stats</h6>
               <p>
+              {(() => { 
+                if( value.bookmark >= value.pages) {
+                    return (
+                        <p>Completed!</p>
+                    )
+                } else {
+                    return (
+                        <div className='cont'>                        
+                            <Form action='#' className='update-bm-form' onSubmit={handleUpdateBookmarkSubmit} style={{width:"55%" }}>
+                                <Form.Group className='mb-3' controlId='formBaiscUpdateBm'>
+                                <Form.Control 
+                                    type="text" 
+                                    size='sm'
+                                    value={onPage}
+                                    onChange={(e) => setOnPage(e.target.value)} 
+                                />
+                                </Form.Group>
+                            </Form>
+
+                            /{value.pages}
+                        </div>
+
+                    )
+                }
+                })()}
+
               Date Started: {value.date_started}<br></br>
               Date Finished: {value.date_finished}
               </p>
@@ -121,7 +158,7 @@ function Bookshelf() {
                                         <Form.Control 
                                             type="text" 
                                             placeholder="304"
-                                            value={pages}
+                                            // value={pages}
                                             onChange={(e) => setPages(e.target.value)} 
                                         />
                                         <Form.Text className='text-muted'>
