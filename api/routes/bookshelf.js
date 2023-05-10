@@ -31,8 +31,7 @@ Bookshelf.belongsTo(User);
 router.get("/", async (req, res) => {
   try {
     let ok = await db.sequelize.query(
-      // "SELECT bookshelves.id, books.title, books.author, books.img_url FROM books JOIN bookshelves ON books.id = bookshelves.\"bookId\"", {
-      "SELECT bs.id, b.title, b.author, b.img_url FROM books b JOIN bookshelves bs ON b.id = bs.\"bookId\" WHERE bs.\"userId\" = 1", {
+      "SELECT bs.id, b.title, b.author, b.img_url, bs.bookmark, bs.pages FROM books b JOIN bookshelves bs ON b.id = bs.\"bookId\" WHERE bs.\"userId\" = 1", {
         type: QueryTypes.SELECT
        }
     );

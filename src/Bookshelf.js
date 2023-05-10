@@ -17,7 +17,7 @@ function Bookshelf() {
 
     useEffect(() => {
         fetch("/api/account").then(async (response) => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             let account = await response.json();
             console.log(account.user);
             setEmail(account.user.email);
@@ -69,42 +69,79 @@ function Bookshelf() {
                 })
         }
     
-    
-        var myBookshelf = listOfEntries.map((value, key) => { 
-            return <OverlayTrigger 
-            key={value.id}
-            trigger="click" 
-            placement="right" 
-            overlay={
-              <Popover id="popover-basic">
-                  <Popover.Header>
-                  <div>
-                      <h4>{value.title}</h4>
-                      <h6>{value.author}</h6>
-                  </div>
-                  </Popover.Header>
-    
-                  <Popover.Body>          
-                  <h6>Your Reflection</h6>
-                  <p>Rating: {value.user_rating}/5<br></br>
-                  {value.reflection}
-                  </p>
-                  <h6>Your Stats</h6>
-                  <p>
-                  Date Started: {value.date_started}<br></br>
-                  Date Finished: {value.date_finished}
-                  </p>
-                  <Button variant='danger' size='sm' type='delete' onClick={() => removeBook(value.id)}>Remove</Button>
-                  </Popover.Body>
-              </Popover>
-            }
-          >
-              <Card className="cust">
-                  <Card.Img variant="top" src={value.img_url} />
-              </Card>
-    
-          </OverlayTrigger>;
-        })
+        
+    // Update Bookmark
+    const [onPage, setOnPage] = useState(0);
+
+    function handleUpdateBookmarkSubmit(e) {
+        e.preventDefault();
+        console.log(onPage);
+        window.location.reload();
+    }
+
+
+
+    var myBookshelf = listOfEntries.map((value, key) => { 
+        return <OverlayTrigger 
+        key={value.id}
+        trigger="click" 
+        placement="right" 
+        overlay={
+        <Popover id="popover-basic">
+            <Popover.Header>
+            <div>
+                <h4>{value.title}</h4>
+                <h6>{value.author}</h6>
+            </div>
+            </Popover.Header>
+
+            <Popover.Body>          
+            <h6>Your Reflection</h6>
+            <p>Rating: {value.user_rating}/5<br></br>
+            {value.reflection}
+            </p>
+            <h6>Your Stats</h6>
+            <p>
+            {(() => { 
+                if( value.bookmark >= value.pages) {
+                    return (
+                        <p>Completed!</p>
+                    )
+                } else {
+                    return (
+                        <div className='cont'>                        
+                            <Form action='#' className='update-bm-form' onSubmit={handleUpdateBookmarkSubmit} style={{width:"20%" }}>
+                                <Form.Group className='mb-3' controlId='formBaiscUpdateBm'>
+                                <Form.Control 
+                                    type="text" 
+                                    size='sm'
+                                    value={onPage}
+                                    onChange={(e) => setOnPage(e.target.value)} 
+                                />
+                                </Form.Group>
+                            </Form>
+
+                            /{value.pages}
+                        </div>
+
+                    )
+                }
+                })()}
+
+            Date Started: {value.date_started}<br></br>
+            Date Finished: {value.date_finished}
+            </p>
+            <Button variant='danger' size='sm' type='delete' onClick={() => removeBook(value.id)}>Remove</Button>
+            </Popover.Body>
+        </Popover>
+        }
+    >
+        <Card className="cust">
+            <Card.Img variant="top" src={value.img_url} />
+        </Card>
+
+    </OverlayTrigger>;
+    })
     
     return(
         <div style={{margin: "1.5vw"}}>
@@ -165,41 +202,3 @@ function Bookshelf() {
 }
 
 export default Bookshelf;
-
-
-
-
-
-// var myBookshelf = contents.map((content) => (
-//     <OverlayTrigger 
-//       trigger="click" 
-//       placement="right" 
-//       overlay={
-//         <Popover id="popover-basic">
-//             <Popover.Header>
-//             <div>
-//                 <h4>{content.title}</h4>
-//                 <h6>{content.author}</h6>
-//             </div>
-//             </Popover.Header>
-//             <Popover.Body>          
-//             <h6>Your Reflection</h6>
-//             <p>Rating: {content.user_rating}/5<br></br>
-//             {content.reflection}
-//             </p>
-//             <h6>Your Stats</h6>
-//             <p>
-//             Date Started: {content.date_started}<br></br>
-//             Date Finished: {content.date_finished}
-//             </p>
-//             </Popover.Body>
-//         </Popover>
-//       }
-//     >
-
-//         <Card className="cust">
-//             <Card.Img variant="top" src={content.image} />
-//         </Card>
-
-//     </OverlayTrigger>
-//   ))
