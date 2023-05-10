@@ -18,7 +18,7 @@ const handleSubmit = (event) => {
   console.log(cookies.get("usearch"))
 }
 const App = () => {
-  if (dummy!="test123456789"){
+  if (dummy!=="test123456789"){
     dummy=dummy.replace(" ", "+")
   }
   console.log(dummy)
