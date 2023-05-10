@@ -18,14 +18,6 @@ Bookshelf.belongsTo(User);
 
 
 
-
-
-//check if user is authenticated using isauthenticated middleware             
-//pass in user id from isAuthenticated middleware               ????? Ask CC about this
-//for book id, pass in from body
-
-
-
 // TO DO: Limit to get all books from a specific user
 // Gets all bookshelf entries
 router.get("/", async (req, res) => {
@@ -39,9 +31,17 @@ router.get("/", async (req, res) => {
   } catch (err) {
     console.error(err.message);
   }
+
+
+  // Doesnt give all the info needed, only bookshelf table data.
+  // const listOfEntries = await Bookshelf.findAll();  // Move { on next line here after implemented
+  //    //{ where: { userId: ??????? }   
+  // res.json(listOfEntries);
 });
 
-
+//check if user is authenticated using isauthenticated middleware             
+//pass in user id from isAuthenticated middleware               ????? Ask CC about this
+//for book id, pass in from body
 
 // TO DO figure our how to pass in user id. Ask CC
 // Adds a book to user's bookshelf
@@ -82,27 +82,35 @@ router.post("/", async (req, res) => {
   } catch (err) {
     console.error(err.message); 
   }
+
+  //  CANT FIGURE THIS OUT OH WELL WHO CARES ALREADY FOUND SOLUTION
+  // const body = req.body;
+  // await Bookshelf.create({ 
+  //   entry: body.entry, 
+  //   bookId: body.bookId,
+  //   userId: body.userId
+  // });
+  // res.json(body);
+  
+
+  // WORKS BUT A LITTLE MESSY
+  // const body = req.body;
+  // let title = req.body.entry;
+  // let userId = req.body.userId;
+  // try {
+  //   await db.sequelize
+  //       .query("INSERT INTO bookshelves (entry, \"bookId\", \"userId\") VALUES (:title, (SELECT id FROM books WHERE title = :title), :userId)", {
+  //         replacements: {
+  //           title: title,
+  //           userId: userId
+  //         },
+  //         type: QueryTypes.INSERT
+  //       })
+  //     res.json(body);
+  // } catch (err) {
+  //   console.error(err.message); 
+  // }
+    
 });
-
-
-
-// Remove a book from library
-router.delete("/:id", async (req, res) => {
-  const body = req.body;
-  let id = req.params.id;
-
-  try {
-    await db.sequelize.query(
-      "DELETE FROM bookshelves WHERE id = :id", {
-        replacements: { id: id },
-        type: QueryTypes.DELETE
-      })
-        res.json(body);
-  } catch (err) {
-    console.error(err.message); 
-  }
-});
-
-
 
 module.exports = router;
