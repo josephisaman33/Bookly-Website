@@ -12,6 +12,20 @@ import axios from 'axios';
 
 function Bookshelf() {
 
+    //Welcome Back Message
+    const [email, setEmail] = useState("");
+
+    useEffect(() => {
+        fetch("/api/account").then(async (response) => {
+          if (response.status === 200) {
+            let account = await response.json();
+            console.log(account.user);
+            setEmail(account.user.email);
+          }
+        });
+    });
+
+    // Get Books
     const [listOfEntries, setListOfEntries] = useState([]);
 
     useEffect(() => {
@@ -19,40 +33,6 @@ function Bookshelf() {
             setListOfEntries(response.data);
         });
     }, []);
-
-
-    var myBookshelf = listOfEntries.map((value, key) => { 
-        return <OverlayTrigger 
-        trigger="click" 
-        placement="right" 
-        overlay={
-          <Popover id="popover-basic">
-              <Popover.Header>
-              <div>
-                  <h4>{value.title}</h4>
-                  <h6>{value.author}</h6>
-              </div>
-              </Popover.Header>
-              <Popover.Body>          
-              <h6>Your Reflection</h6>
-              <p>Rating: {value.user_rating}/5<br></br>
-              {value.reflection}
-              </p>
-              <h6>Your Stats</h6>
-              <p>
-              Date Started: {value.date_started}<br></br>
-              Date Finished: {value.date_finished}
-              </p>
-              </Popover.Body>
-          </Popover>
-        }
-      >
-          <Card className="cust">
-              <Card.Img variant="top" src={value.img_url} />
-          </Card>
-
-      </OverlayTrigger>;
-    })
 
 
 
@@ -78,7 +58,6 @@ function Bookshelf() {
     }
 
 
-<<<<<<< HEAD
 
     // Delete Book
     const removeBook = (id) => {
@@ -164,8 +143,6 @@ function Bookshelf() {
       </OverlayTrigger>;
     })
 
-=======
->>>>>>> parent of ec6138d (Implemented DELETE on bookshelf page)
     return(
         <div style={{margin: "1.5vw"}}>
             <h1>Welcome Back, {email}</h1>
