@@ -7,6 +7,7 @@ import Library from "./Library";
 import Reflection from "./Reflection";
 import Account from "./Account";
 import Search from "./Search";
+import Search2 from "./Search2";
 import Register from "./Register";
 import NavBar from "./components/NavBar";
 import Logout from "./Logout";
@@ -39,6 +40,7 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/register" element={<Register />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/search_guest" element={<Search2 />}/>
       </Routes>
     </div>
   );
