@@ -9,6 +9,7 @@ const db = require("../db/db");
 const User = require("../db/models/User");
 const Books = require("../db/models/Books");
 const Bookshelf = require("../db/models/Bookshelf");
+const { type } = require("@testing-library/user-event/dist/type");
 
 // Database Relations
 Books.hasMany(Bookshelf, { onDelete: 'cascade' });
@@ -27,11 +28,11 @@ Bookshelf.belongsTo(User);
 
 
 // TO DO: Limit to get all books from a specific user
-// Gets all bookshelf entries
+// Get currently reading books
 router.get("/", async (req, res) => {
   try {
     let ok = await db.sequelize.query(
-      "SELECT bs.id, b.title, b.author, b.img_url, bs.bookmark, bs.pages FROM books b JOIN bookshelves bs ON b.id = bs.\"bookId\" WHERE bs.\"userId\" = 1", {
+      "SELECT bs.id, b.title, b.author, b.img_url, bs.bookmark, bs.pages, bs.started FROM books b JOIN bookshelves bs ON b.id = bs.\"bookId\" WHERE bs.\"userId\" = 1 AND bs.finished IS NULL", {
         type: QueryTypes.SELECT
        }
     );
@@ -41,6 +42,21 @@ router.get("/", async (req, res) => {
   }
 });
 
+
+// TO DO: Limit to get all books from a specific user
+// Get completed books
+// router.get("/finished", async (req, res) => {
+//   try {
+//     let ok = await db.sequelize.query(
+//       "SELECT bs.id, b.title, b.author, b.img_url, bs.bookmark, bs.pages, bs.started, bs.finished FROM books b JOIN bookshelves bs ON b.id = bs.\"bookId\" WHERE bs.\"userId\" = 1 AND bs.finished IS NOT NULL", {
+//         type: QueryTypes.SELECT
+//        }
+//     );
+//     res.json(ok);
+//   } catch (err) {
+//     console.error(err.message);
+//   }
+// });
 
 
 // TO DO figure our how to pass in user id. Ask CC
@@ -63,7 +79,7 @@ router.post("/", async (req, res) => {
         // If the book exists, create the bookshelf entry and store in database.
         let bookId = book[0].id;
         await db.sequelize.query(
-          "INSERT INTO bookshelves (entry, \"bookId\", \"userId\", pages) VALUES (:title, :bookId, :userId, :pages)", {
+          "INSERT INTO bookshelves (entry, \"bookId\", \"userId\", pages, started) VALUES (:title, :bookId, :userId, :pages, CURRENT_DATE)", {
             replacements: {
               title: title,
               bookId: bookId,
@@ -97,11 +113,35 @@ router.delete("/:id", async (req, res) => {
         replacements: { id: id },
         type: QueryTypes.DELETE
       })
-        res.json(body);
+    res.json(body);
   } catch (err) {
     console.error(err.message); 
   }
 });
+
+
+
+// Update a bookmark
+router.put("/:id", async (req, res) => {
+  const body = req.body;
+  let id = req.params.id;
+  // let id = req.body.id;
+  let bookmark = req.body.bookmark;
+  try {
+    console.log(body);
+    await db.sequelize.query(
+      "UPDATE bookshelves SET bookmark = :bookmark WHERE id = :id", {
+        replacements: {
+          id: id,
+          bookmark: bookmark
+        },
+        type: QueryTypes.UPDATE
+      })
+    res.json("Bookmark was updated!");
+  } catch (err) {
+    console.error(err.message);
+  }
+})
 
 
 

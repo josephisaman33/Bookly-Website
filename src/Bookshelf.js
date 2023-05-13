@@ -25,125 +25,144 @@ function Bookshelf() {
         });
     });
 
-        // Get Books
-        const [listOfEntries, setListOfEntries] = useState([]);
 
-        useEffect(() => {
-            axios.get("http://localhost:50000/bookshelf").then((response) => {
-                setListOfEntries(response.data);
-            });
-        }, []);
-    
-    
-    
-        // Add Book
-        const [entry, setEntry] = useState("");
-        const [pages, setPages] = useState(0);
-    
-        function handleAddBookSubmit(e) {
-            e.preventDefault();
-            axios
-                .post("http://localhost:50000/bookshelf", {
-                    entry: entry,
-                    userId: 1,
-                    pages: pages,
-                })
-                .then((response) => {
-                    console.log();
-                    window.location.reload();
-                })
-                .catch(function (err) {
-                    console.error(err.message);
-                });
-        }
-    
-    
-    
-        // Delete Book
-        const removeBook = (id) => {
-            axios
-                .delete(`http://localhost:50000/bookshelf/${id}`)
-                .then(() => {
-                    window.location.reload();
-                    console.log("Delete Success");
-                })
-        }
-    
-        
-    // Update Bookmark
-    const [onPage, setOnPage] = useState(0);
 
-    function handleUpdateBookmarkSubmit(e) {
+    // Get Books
+    const [listOfEntries, setListOfEntries] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:50000/bookshelf").then((response) => {
+            setListOfEntries(response.data);
+        });
+    }, []);
+
+
+
+    // Add Book
+    const [entry, setEntry] = useState("");
+    const [pages, setPages] = useState(0);
+
+    function handleAddBookSubmit(e) {
         e.preventDefault();
-        console.log(onPage);
-        window.location.reload();
+        axios
+            .post("http://localhost:50000/bookshelf", {
+                entry: entry,
+                userId: 1,
+                pages: pages,
+            })
+            .then((response) => {
+                console.log();
+                window.location.reload();
+            })
+            .catch(function (err) {
+                console.error(err.message);
+            });
     }
 
 
 
-    var myBookshelf = listOfEntries.map((value, key) => { 
-        return <OverlayTrigger 
-        key={value.id}
-        trigger="click" 
-        placement="right" 
-        overlay={
-        <Popover id="popover-basic">
-            <Popover.Header>
-            <div>
-                <h4>{value.title}</h4>
-                <h6>{value.author}</h6>
-            </div>
-            </Popover.Header>
-
-            <Popover.Body>          
-            <h6>Your Reflection</h6>
-            <p>Rating: {value.user_rating}/5<br></br>
-            {value.reflection}
-            </p>
-            <h6>Your Stats</h6>
-            <p>
-            {(() => { 
-                if( value.bookmark >= value.pages) {
-                    return (
-                        <p>Completed!</p>
-                    )
-                } else {
-                    return (
-                        <div className='cont'>                        
-                            <Form action='#' className='update-bm-form' onSubmit={handleUpdateBookmarkSubmit} style={{width:"20%" }}>
-                                <Form.Group className='mb-3' controlId='formBaiscUpdateBm'>
-                                <Form.Control 
-                                    type="text" 
-                                    size='sm'
-                                    value={onPage}
-                                    onChange={(e) => setOnPage(e.target.value)} 
-                                />
-                                </Form.Group>
-                            </Form>
-
-                            /{value.pages}
-                        </div>
-
-                    )
-                }
-                })()}
-
-            Date Started: {value.date_started}<br></br>
-            Date Finished: {value.date_finished}
-            </p>
-            <Button variant='danger' size='sm' type='delete' onClick={() => removeBook(value.id)}>Remove</Button>
-            </Popover.Body>
-        </Popover>
-        }
-    >
-        <Card className="cust">
-            <Card.Img variant="top" src={value.img_url} />
-        </Card>
-
-    </OverlayTrigger>;
-    })
+    // Delete Book
+    const removeBook = (id) => {
+        axios
+            .delete(`http://localhost:50000/bookshelf/${id}`)
+            .then(() => {
+                window.location.reload();
+                console.log("Delete Success");
+            })
+    }
     
-    return(
+        
+    // // Update Bookmark
+    function handleUpdateBookmarkSubmit(e, id, onPage) {
+        e.preventDefault();
+        axios
+            .put(`http://localhost:50000/bookshelf/${id}`, {
+                bookmark: onPage
+            })
+            .then((response) => {
+                console.log("Outside changed bm");
+                window.location.reload();
+            })
+            .catch(function (err) {
+                console.log(err.message);
+            })
+    }
+
+
+    function BookCards({data}) {
+        const [onPage, setOnPage] = useState(data.bookmark);
+        return (<>
+            <OverlayTrigger 
+                data={data}
+                key={data.id}
+                trigger="click" 
+                placement="right" 
+                overlay={
+                    <Popover id="popover-basic">
+                        <Popover.Header>
+                                <h4>{data.title}</h4>
+                                <h6>{data.author}</h6>
+                        </Popover.Header>
+
+                        <Popover.Body>          
+                            <h6>Your Reflection</h6>
+                            <p>Rating: {data.user_rating}/5<br></br>
+                            {data.reflection}
+                            </p>
+                            <h6>Your Stats</h6>
+                            <p>
+                            {(() => { 
+                                if( data.bookmark >= data.pages) {
+                                    return (
+                                        <p>Completed!</p>
+                                    )
+                                } else {
+                                    return (
+                                        <div className='cont'>                        
+                                            <Form action='#' className='update-bm-form' onSubmit={(e) => handleUpdateBookmarkSubmit(e, data.id, onPage)} style={{width:"20%" }}>
+                                                <Form.Group className='mb-3' controlId='formBaiscUpdateBm'>
+                                                <Form.Control 
+                                                    type="text" 
+                                                    size='sm'
+                                                    value={onPage}
+                                                    onChange={(e) => setOnPage(e.target.value)} 
+                                                />
+                                                </Form.Group>
+                                            </Form>
+
+                                            /{data.pages}
+                                        </div>
+
+                                    )
+                                }
+                                })()}
+
+                            Date Started: {data.started}<br></br>
+                            {(() => { 
+                                if( data.finished ) {
+                                    return (
+                                        <div>Date Finished: {data.finished}</div>
+                                    )
+                                }
+                            })()}
+                            </p>
+
+                            <Button variant='danger' size='sm' type='delete' onClick={() => removeBook(data.id)}>Remove</Button>
+                        </Popover.Body>
+                    </Popover>
+                }
+            >
+
+                <Card className="cust">
+                    <Card.Img variant="top" src={data.img_url} />
+                </Card>
+
+            </OverlayTrigger>
+        </>)
+    }
+    
+
+    return (
         <div style={{margin: "1.5vw"}}>
             <h1>Welcome Back, {email}</h1>
 
@@ -191,13 +210,17 @@ function Bookshelf() {
                     }
                 >
                     <Button variant="outline-secondary" size="lg">
-                    Add a book
+                        Add a book
                     </Button>
                 </OverlayTrigger>
                 
-                {myBookshelf}
+                {listOfEntries.map(data => 
+                    <BookCards data={data} key={data.id} onSubmit={handleUpdateBookmarkSubmit}/>
+                )}
+
             </div>
         </div>
+
     )
 }
 

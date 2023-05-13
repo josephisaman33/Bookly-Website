@@ -19,7 +19,15 @@ let Bookshelf = db.sequelize.define("bookshelf", {
   pages: {
     type: Sequelize.INTEGER,
     allowNull: true,
-  }
+  },
+  started: {
+    type: Sequelize.DATEONLY,
+    allowNull: true,
+  },
+  finished: {
+    type: Sequelize.DATEONLY,
+    allowNull: true
+  } 
 }, {timestamps:false});
 
 
