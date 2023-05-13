@@ -28,11 +28,21 @@ function Bookshelf() {
 
 
     // Get Books
-    const [listOfEntries, setListOfEntries] = useState([]);
+    const [currReading, setCurrReading] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:50000/bookshelf").then((response) => {
-            setListOfEntries(response.data);
+        axios.get("http://localhost:50000/bookshelf/currReading").then((response) => {
+            setCurrReading(response.data);
+        });
+    }, []);
+
+
+    // Get Books
+    const [finReading, setFinReading] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:50000/bookshelf/finReading").then((response) => {
+            setFinReading(response.data);
         });
     }, []);
 
@@ -104,48 +114,44 @@ function Bookshelf() {
                                 <h6>{data.author}</h6>
                         </Popover.Header>
 
-                        <Popover.Body>          
-                            <h6>Your Reflection</h6>
-                            <p>Rating: {data.user_rating}/5<br></br>
-                            {data.reflection}
-                            </p>
-                            <h6>Your Stats</h6>
-                            <p>
-                            {(() => { 
-                                if( data.bookmark >= data.pages) {
-                                    return (
+                        <Popover.Body>  
+                            {(() => {
+                                if( data.finished ) {
+                                    return (<>
+                                        <h6>Your Reflection</h6>
+                                        <p>Rating: {data.user_rating}/5<br></br>
+                                        {data.reflection}
+                                        </p>
+                                        <h6>Your Stats</h6>
                                         <p>Completed!</p>
+                                        <p>Pages: {data.pages} <br/>
+                                        Date started: {data.started} <br/>
+                                        Date finished: {data.finished}</p>
+                                    </>
                                     )
                                 } else {
-                                    return (
-                                        <div className='cont'>                        
-                                            <Form action='#' className='update-bm-form' onSubmit={(e) => handleUpdateBookmarkSubmit(e, data.id, onPage)} style={{width:"20%" }}>
+                                    return (<p> Bookmark:
+                                        <div className='cont'>                     
+                                            <Form action='#' className='update-bm-form' onSubmit={(e) => handleUpdateBookmarkSubmit(e, data.id, onPage)} style={{width:"26%", height:"33px"}}>
                                                 <Form.Group className='mb-3' controlId='formBaiscUpdateBm'>
                                                 <Form.Control 
                                                     type="text" 
-                                                    size='sm'
+                                                    // size='sm'
+                                                    style={{height:"25px"}}
                                                     value={onPage}
                                                     onChange={(e) => setOnPage(e.target.value)} 
                                                 />
                                                 </Form.Group>
                                             </Form>
-
                                             /{data.pages}
-                                        </div>
-
+                                        </div> 
+                                        Date started: {data.started} <br/>
+                                        </p>
+                                        
                                     )
                                 }
                                 })()}
-
-                            Date Started: {data.started}<br></br>
-                            {(() => { 
-                                if( data.finished ) {
-                                    return (
-                                        <div>Date Finished: {data.finished}</div>
-                                    )
-                                }
-                            })()}
-                            </p>
+                            
 
                             <Button variant='danger' size='sm' type='delete' onClick={() => removeBook(data.id)}>Remove</Button>
                         </Popover.Body>
@@ -214,7 +220,14 @@ function Bookshelf() {
                     </Button>
                 </OverlayTrigger>
                 
-                {listOfEntries.map(data => 
+                {currReading.map(data => 
+                    <BookCards data={data} key={data.id} onSubmit={handleUpdateBookmarkSubmit}/>
+                )}
+
+            </div>
+
+            <div className='cont'>
+            {finReading.map(data => 
                     <BookCards data={data} key={data.id} onSubmit={handleUpdateBookmarkSubmit}/>
                 )}
 
