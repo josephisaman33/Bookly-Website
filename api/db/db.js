@@ -14,6 +14,7 @@ let sequelize = new Sequelize(
       min: 0,
       idle: 10000,
     },
+    timezone: '-4:00',
   }
 );
 

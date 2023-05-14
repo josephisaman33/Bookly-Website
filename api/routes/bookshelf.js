@@ -77,7 +77,7 @@ router.get("/finReading", async (req, res) => {
 // Adds a book to user's bookshelf
 router.post("/", async (req, res) => {
   const body = req.body;
-  let title = req.body.entry;
+  let entry = req.body.entry;
   let userId = req.body.userId;
   let pages = req.body.pages;
 
@@ -85,7 +85,7 @@ router.post("/", async (req, res) => {
   try {
     await db.sequelize.query(
       "SELECT id FROM books WHERE LOWER(title) = LOWER(:title)", {
-        replacements: { title: title },
+        replacements: { title: entry },
         type: QueryTypes.SELECT
       })
     .then(async function (book) {
@@ -95,7 +95,7 @@ router.post("/", async (req, res) => {
         await db.sequelize.query(
           "INSERT INTO bookshelves (entry, \"bookId\", \"userId\", pages, started) VALUES (:title, :bookId, :userId, :pages, CURRENT_DATE)", {
             replacements: {
-              title: title,
+              title: entry,
               bookId: bookId,
               userId: userId,
               pages: pages

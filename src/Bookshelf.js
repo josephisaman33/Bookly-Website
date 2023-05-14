@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from 'react'
-import {Popover, OverlayTrigger, Card, Button, Form} from 'react-bootstrap'
+import {Popover, OverlayTrigger, Button, Form, Image} from 'react-bootstrap'
 import './components/Bookshelf/cust.css'
 import axios from 'axios';
 
@@ -27,7 +27,7 @@ function Bookshelf() {
 
 
 
-    // Get Books
+    // Get Books -- Currently Reading
     const [currReading, setCurrReading] = useState([]);
 
     useEffect(() => {
@@ -37,7 +37,7 @@ function Bookshelf() {
     }, []);
 
 
-    // Get Books
+    // Get Books -- Finished Reading
     const [finReading, setFinReading] = useState([]);
 
     useEffect(() => {
@@ -48,26 +48,99 @@ function Bookshelf() {
 
 
 
+
+
     // Add Book
     const [entry, setEntry] = useState("");
     const [pages, setPages] = useState(0);
 
+
+    // let shit = entry.replaceAll(' ', '+');
+
+    // // for finding the title and author
+    // const [title, setTitle] = useState("")
+    // const [author, setAuthor] = useState("");
+    // useEffect(() => {
+    //     fetch("https://openlibrary.org/search.json?q=" + shit).then(async (response) => {
+    //         let data = await response.json();
+    //         setTitle(data.docs[0].title_suggest);
+    //         setAuthor(data.docs[0].author_name[0]);
+    //     });
+    // }, []);
+
+
+
+    // // MOVE THIS INSIDE LATER!!
+    // let api_key = "64614ad6b765da6c6b06e222";
+    // // let shit = entry.replaceAll(' ', '+');
+    // let apiLink = "https://api.serpdog.io/images?api_key=" + api_key + "&q=" + shit + "+book+cover&gl=us";
+    // // for finding the link
+    // const [imgLink, setImgLink] = useState("");
+    // useEffect(() => {
+    //     fetch(apiLink).then(async (response) => {
+    //             let data = await response.json();
+    //             setImgLink(data.image_results[0].thumbnail);
+    //         });
+    // }, []);
+
+
     function handleAddBookSubmit(e) {
         e.preventDefault();
+        // // Add the book to the book database, if its not already there.
+        // axios
+        //     .post("http://localhost:50000/books", {
+        //         entry: entry,
+        //         title: title,
+        //         author: author,
+        //         img_url: imgLink
+        //     })
+        //     .then((response) => {
+        //         console.log(response);
+        //         axios
+        //         .post("http://localhost:50000/bookshelf", {
+        //             entry: entry,
+        //             userId: 1,
+        //             pages: pages,
+        //         })
+        //         .then((response) => {
+        //             console.log();
+        //             // window.location.reload();
+        //         })
+        //         .catch(function (err) {
+        //             console.error(err.message);
+        //         });
+        //     })
+        //     .catch(function (err) {
+        //         console.error(err.message);
+        //     });
+
+
+        // Add the book to bookshelf
         axios
-            .post("http://localhost:50000/bookshelf", {
-                entry: entry,
-                userId: 1,
-                pages: pages,
-            })
-            .then((response) => {
-                console.log();
-                window.location.reload();
-            })
-            .catch(function (err) {
-                console.error(err.message);
-            });
+        .post("http://localhost:50000/bookshelf", {
+            entry: entry,
+            userId: 1,
+            pages: pages,
+        })
+        .then((response) => {
+            console.log();
+            window.location.reload();
+        })
+        .catch(function (err) {
+            console.error(err.message);
+        });
     }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -159,19 +232,27 @@ function Bookshelf() {
                 }
             >
 
-                <Card className="cust">
+                {/* <Card className="cust">
                     <Card.Img variant="top" src={data.img_url} />
-                </Card>
+                </Card> */}
+                <Image className="cust" src={data.img_url} />
 
             </OverlayTrigger>
         </>)
     }
     
 
+
     return (
         <div style={{margin: "1.5vw"}}>
+            {/* {shit} */}
+            {/* {title} */}
+            {/* {author} */}
+            {/* {imgLink} */}
+            {/* {apiLink} */}
             <h1>Welcome Back, {email}</h1>
 
+            <h2>Currently Reading</h2>
             <div className='cont'>
                 <OverlayTrigger 
                     trigger="click" 
@@ -223,15 +304,15 @@ function Bookshelf() {
                 {currReading.map(data => 
                     <BookCards data={data} key={data.id} onSubmit={handleUpdateBookmarkSubmit}/>
                 )}
-
             </div>
-
+            
+            <h2>Read</h2>
             <div className='cont'>
-            {finReading.map(data => 
+                {finReading.map(data => 
                     <BookCards data={data} key={data.id} onSubmit={handleUpdateBookmarkSubmit}/>
                 )}
-
             </div>
+
         </div>
 
     )
