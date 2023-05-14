@@ -19,6 +19,7 @@ const db = require("./db/db");
 const User = require("./db/models/User");
 const Books = require("./db/models/Books");
 const Bookshelf = require("./db/models/Bookshelf");
+const Reflection = require("./db/models/Reflection")    // ADDED REFLECTIONS
 
 async function initializeTables() {
   await db.sequelize.sync({ alter: true });
