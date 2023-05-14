@@ -20,10 +20,8 @@ const handleSubmit = (event) => {
   console.log(cookies.get("usearch"))
 }
 const addBook = (e) => {
-  if (typeof e.target[0].value !== 'integer'){
-    alert("Invalid Page Number. Try Again");
-  }
-  axios
+  /*
+      axios
       .post("http://localhost:50000/bookshelf", {
           entry: "Spider-Verse",
           userId: 1,
@@ -31,6 +29,22 @@ const addBook = (e) => {
       })
       .then((response) => {
           console.log();
+          window.location.reload();
+
+      })
+      .catch(function (err) {
+          console.error(err.message);
+          alert("An error occured...");
+      });
+      */
+    axios
+      .post("http://localhost:50000/reflection", {
+          reflection: "HI",
+          rating: 5
+      })
+      .then((response) => {
+          console.log();
+          alert("Reflection Successful!");
           window.location.reload();
 
       })
