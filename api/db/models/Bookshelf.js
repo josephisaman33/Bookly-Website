@@ -27,7 +27,15 @@ let Bookshelf = db.sequelize.define("bookshelf", {
   finished: {
     type: Sequelize.DATEONLY,
     allowNull: true
-  } 
+  },
+  rating: {
+    type: Sequelize.INTEGER,
+    allowNull: true
+  },
+  reflection: {
+    type: Sequelize.STRING,
+    allowNull: true
+  }
 }, {timestamps:false});
 
 

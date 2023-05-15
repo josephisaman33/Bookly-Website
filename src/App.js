@@ -5,6 +5,7 @@ import Home from "./Home";
 import Bookshelf from "./Bookshelf";
 import Library from "./Library";
 import Reflection from "./Reflection";
+import Trial from "./Trial";
 import Account from "./Account";
 import Search from "./Search";
 import Search2 from "./Search2";
@@ -36,6 +37,7 @@ function App() {
         <Route path="/bookshelf" element={<Bookshelf />} />
         <Route path="/library" element={<Library />} />
         <Route path="/reflection" element={<Reflection />} />
+        <Route path="/trial" element={<Trial />} />
         <Route path="/account" element={<Account />} />
         <Route path="/search" element={<Search />} />
         <Route path="/register" element={<Register />} />

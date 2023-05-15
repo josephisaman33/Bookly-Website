@@ -1,6 +1,6 @@
 .cust{
     border: 0 !important;
-    float: left;
+    /* float: left; */
     margin: .75vw;
     max-width: 12.5vw;
     transition: transform 200ms ease-in;

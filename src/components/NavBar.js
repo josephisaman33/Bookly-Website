@@ -23,6 +23,7 @@ function NavBar({authenticated}) {
             <Nav className="me-auto">
               {authenticated?<Nav.Link href="bookshelf">Bookshelf</Nav.Link>:<></>}
               {authenticated?<Nav.Link href="reflection">Reflection</Nav.Link>:<></>}
+              {authenticated?<Nav.Link href="trial">Trial</Nav.Link>:<></>}
               {authenticated?<Nav.Link href="search">Search</Nav.Link>:<Nav.Link href="search_guest">Search</Nav.Link>}
               <Nav.Link href={authenticated?"account":"login"}>{authenticated?"Account":"Sign In"}</Nav.Link>
               {authenticated?<Nav.Link href="logout">Logout</Nav.Link>:<></>}
