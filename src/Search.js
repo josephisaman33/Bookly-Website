@@ -20,10 +20,28 @@ const handleSubmit = (event) => {
   console.log(cookies.get("usearch"))
 }
 const addBook = (e) => {
-  /*
+  console.log(cookies.get('usearch'))
+  console.log(cookies.get('propname'))
+  console.log(cookies.get('propauthor'))
+  console.log("https://covers.openlibrary.org/b/oclc/"+cookies.get('propoclc')+"-L.jpg")
+  alert("ERROR 0");
+  axios
+  .post("http://localhost:50000/books", {
+    entry: cookies.get('usearch'),
+    title: cookies.get('propname'),
+    author: cookies.get('propauthor'),
+    img_url: "https://covers.openlibrary.org/b/oclc/"+cookies.get('propoclc')+"-L.jpg"
+  })
+  .then((response) => {
+    console.log(response);
+  })
+  .catch(function (err) {
+    console.error(err.message);
+    alert("ERROR 1");
+  })
       axios
       .post("http://localhost:50000/bookshelf", {
-          entry: "Spider-Verse",
+          entry: cookies.get('usearch'),
           userId: 1,
           pages: e.target[0].value,
       })
@@ -34,9 +52,9 @@ const addBook = (e) => {
       })
       .catch(function (err) {
           console.error(err.message);
-          alert("An error occured...");
+          alert("ERROR 2");
       });
-      */
+      /*
     axios
       .post("http://localhost:50000/reflection", {
           reflection: "HI",
@@ -52,7 +70,7 @@ const addBook = (e) => {
           console.error(err.message);
           alert("An error occured...");
       });
-      
+      */
 }
 const App = () => {
   if (dummy!=="test123456789"){
@@ -66,11 +84,27 @@ const App = () => {
           .then((response) => response.json())
           .then((data) => {
             setPosts(data);
-            cookies.set('Propname', data.docs[0].title, {
+            cookies.set('propname', data.docs[0].title, {
               path: '/',
               sameSite: 'Strict',
               secure: true,
             });
+            cookies.set('propauthor', data.docs[0].author_name[0], {
+              path: '/',
+              sameSite: 'Strict',
+              secure: true,
+            });
+            {typeof data.docs[0].oclc[0] !== 'undefined' ?
+            cookies.set('propoclc', data.docs[0].oclc[0], {
+              path: '/',
+              sameSite: 'Strict',
+              secure: true,
+            }) :
+            cookies.set('propoclc', data.docs[1].oclc[0], {
+              path: '/',
+              sameSite: 'Strict',
+              secure: true,
+            })}
           })
           .catch((error) => console.log(error));
       }, []);
