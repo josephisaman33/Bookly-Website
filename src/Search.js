@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Cookies from 'universal-cookie';
+import axios from 'axios';
+
 const cookies = new Cookies();
 let dummy="test123456789"
 if (cookies.get("usearch")!==undefined){
@@ -17,6 +19,41 @@ const handleSubmit = (event) => {
   });
   console.log(cookies.get("usearch"))
 }
+const addBook = (e) => {
+  /*
+      axios
+      .post("http://localhost:50000/bookshelf", {
+          entry: "Spider-Verse",
+          userId: 1,
+          pages: e.target[0].value,
+      })
+      .then((response) => {
+          console.log();
+          window.location.reload();
+
+      })
+      .catch(function (err) {
+          console.error(err.message);
+          alert("An error occured...");
+      });
+      */
+    axios
+      .post("http://localhost:50000/reflection", {
+          reflection: "HI",
+          rating: 5
+      })
+      .then((response) => {
+          console.log();
+          alert("Reflection Successful!");
+          window.location.reload();
+
+      })
+      .catch(function (err) {
+          console.error(err.message);
+          alert("An error occured...");
+      });
+      
+}
 const App = () => {
   if (dummy!=="test123456789"){
     dummy=dummy.replace(" ", "+")
@@ -29,6 +66,11 @@ const App = () => {
           .then((response) => response.json())
           .then((data) => {
             setPosts(data);
+            cookies.set('Propname', data.docs[0].title, {
+              path: '/',
+              sameSite: 'Strict',
+              secure: true,
+            });
           })
           .catch((error) => console.log(error));
       }, []);
@@ -58,14 +100,26 @@ const App = () => {
           <th>Author</th>
           <th>Release Date</th>
           <th>Library Search</th>
+          <th>Add Book Below</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>{typeof posts.num_found !== 'undefined' ? posts.docs[0].title : "loading..."}</td>
           <td>{typeof posts.num_found !== 'undefined' ? posts.docs[0].author_name[0] : "loading..."}</td>
-          <td>{typeof posts.num_found !== 'undefined' ? posts.docs[0].publish_date[0] : "loading..."}</td>
+          <td>{typeof posts.num_found !== 'undefined' ? posts.docs[0].first_publish_year : "loading..."}</td>
           <td><a href={dummy2}>Search Here!</a></td>
+          <td>
+            <Form onSubmit={addBook} className="d-flex">
+          <Form.Control
+            type="search2"
+            placeholder="Page Number"
+            className="me-2"
+            aria-label="Search2"
+            />
+          <Button type="submit" variant="info">Add Book</Button>
+        </Form>
+        </td>
         </tr>
       </tbody>
     </Table>

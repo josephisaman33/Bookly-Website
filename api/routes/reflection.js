@@ -32,7 +32,29 @@ Reflection.belongsTo(User);
 
 
 // Requests
-
+router.post("/", async (req, res) => {
+    const body = req.body;
+    let reflection = req.body.reflection;
+    let rating = req.body.rating;
+  
+    // Check if the book the user entered is in the database
+    try {
+        async function (bookfunc) {
+            await db.sequelize.query(
+            "INSERT INTO reflection (reflection, rating) VALUES (:reflection, :rating)", {
+              replacements: {
+                reflection: reflection,
+                rating: rating
+              },
+              type: QueryTypes.INSERT
+            });
+          res.json(body);
+        }
+    } catch (err) {
+      console.error(err.message); 
+    }
+  });
+  
 
 
 module.exports = router;

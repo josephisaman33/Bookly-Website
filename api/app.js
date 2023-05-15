@@ -58,6 +58,7 @@ app.use(function (err, req, res, next) {
 app.use("/api", apiRouter);
 // app.use("/books", booksRouter);
 app.use("/bookshelf", bookshelfRouter);
+app.use("/reflection", reflectionRouter);
 app.use("/router", reflectionRouter);
 
 
