@@ -19,7 +19,7 @@ function Bookshelf() {
         fetch("/api/account").then(async (response) => {
           if (response.status === 200) {
             let account = await response.json();
-            console.log(account.user);
+            // console.log(account.user);
             setEmail(account.user.email);
           }
         });
@@ -49,73 +49,65 @@ function Bookshelf() {
 
 
 
-
+    // Example adds: Where the Crawdads Sing, Moby Dick
     // Add Book
     const [entry, setEntry] = useState("");
     const [pages, setPages] = useState(0);
 
-
-    // let shit = entry.replaceAll(' ', '+');
-
-    // // for finding the title and author
+    
+    // // FOR FINDING THE TITLE, AUTHOR, OCLC AND IMAGE LINK
     // const [title, setTitle] = useState("")
     // const [author, setAuthor] = useState("");
-    // useEffect(() => {
-    //     fetch("https://openlibrary.org/search.json?q=" + shit).then(async (response) => {
-    //         let data = await response.json();
-    //         setTitle(data.docs[0].title_suggest);
-    //         setAuthor(data.docs[0].author_name[0]);
-    //     });
-    // }, []);
+    // const [oclc, setOclc] = useState("");
+    // const [oclcImageLink, setOclcImageLink] = useState("");
 
 
-
-    // // MOVE THIS INSIDE LATER!!
-    // let api_key = "64614ad6b765da6c6b06e222";
-    // // let shit = entry.replaceAll(' ', '+');
-    // let apiLink = "https://api.serpdog.io/images?api_key=" + api_key + "&q=" + shit + "+book+cover&gl=us";
-    // // for finding the link
-    // const [imgLink, setImgLink] = useState("");
-    // useEffect(() => {
-    //     fetch(apiLink).then(async (response) => {
-    //             let data = await response.json();
-    //             setImgLink(data.image_results[0].thumbnail);
-    //         });
-    // }, []);
-
-
-    function handleAddBookSubmit(e) {
+    function HandleAddBookSubmit(e) {
         e.preventDefault();
-        // // Add the book to the book database, if its not already there.
+
+        // // USE API TO SEARCH FOR TITLE, AUTHOR, OCLC, OCLCIMAGELNK
+        // let shit = entry.replaceAll(' ', '+');
+        // // useEffect(() => {    // I don't think useEffect is allowed here
+        //     fetch("https://openlibrary.org/search.json?title=" + shit)
+        //     .then(async (response) => {
+        //         let data = await response.json();
+        //         setTitle(data.docs[0].title_suggest);
+        //         setAuthor(data.docs[0].author_name[0]);
+
+        //         let i = 0;
+        //         //  Wanted to use a loop because some oclc's dont have images associated with them. so go thru until find one
+        //         // for (let i = 1; i <= data.docs[0].oclc.length; i++) {
+        //             setOclc(data.docs[0].oclc[i]);
+        //             setOclcImageLink("https://covers.openlibrary.org/b/oclc/" + oclc + "-L.jpg?default=false");
+        //             console.log(title, author, oclc, oclcImageLink);
+        //             // if (fetch(OclcImageLink) !== "not found") { break; }
+        //         // };
+
+        //     }); // end fetch
+        // // }, []);  // end useEffect
+
+
+
+        // // INSERT THE BOOK INTO BOOK DATABASE, IF NOT ALREADY THERE
         // axios
         //     .post("http://localhost:50000/books", {
         //         entry: entry,
         //         title: title,
         //         author: author,
-        //         img_url: imgLink
+        //         img_url: oclcImageLink
         //     })
         //     .then((response) => {
         //         console.log(response);
-        //         axios
-        //         .post("http://localhost:50000/bookshelf", {
-        //             entry: entry,
-        //             userId: 1,
-        //             pages: pages,
-        //         })
-        //         .then((response) => {
-        //             console.log();
-        //             // window.location.reload();
-        //         })
-        //         .catch(function (err) {
-        //             console.error(err.message);
-        //         });
         //     })
         //     .catch(function (err) {
         //         console.error(err.message);
-        //     });
+        //     })
 
 
-        // Add the book to bookshelf
+
+
+
+        // ADD TO YOUR BOOKSHELF
         axios
         .post("http://localhost:50000/bookshelf", {
             entry: entry,
@@ -203,7 +195,8 @@ function Bookshelf() {
                                     </>
                                     )
                                 } else {
-                                    return (<p> Bookmark:
+                                    return (<> 
+                                        Bookmark:
                                         <div className='cont'>                     
                                             <Form action='#' className='update-bm-form' onSubmit={(e) => handleUpdateBookmarkSubmit(e, data.id, onPage)} style={{width:"26%", height:"33px"}}>
                                                 <Form.Group className='mb-3' controlId='formBaiscUpdateBm'>
@@ -219,7 +212,7 @@ function Bookshelf() {
                                             /{data.pages}
                                         </div> 
                                         Date started: {data.started} <br/>
-                                        </p>
+                                        </>
                                         
                                     )
                                 }
@@ -245,11 +238,9 @@ function Bookshelf() {
 
     return (
         <div style={{margin: "1.5vw"}}>
-            {/* {shit} */}
-            {/* {title} */}
-            {/* {author} */}
-            {/* {imgLink} */}
-            {/* {apiLink} */}
+            {/* {title}
+            {author}
+            {oclc} */}
             <h1>Welcome Back, {email}</h1>
 
             <h2>Currently Reading</h2>
@@ -261,7 +252,7 @@ function Bookshelf() {
                         <Popover id="popover-basic">
                             <Popover.Header>Enter Book Title</Popover.Header>
                             <Popover.Body>  
-                                <Form action='#' className='add-book-form' onSubmit={handleAddBookSubmit}>
+                                <Form action='#' className='add-book-form' onSubmit={HandleAddBookSubmit}>
                                     <Form.Group className="mb-3" controlId="formBasicEntry">
                                         <Form.Label>Book Title</Form.Label>
                                         <Form.Control 
