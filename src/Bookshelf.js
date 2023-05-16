@@ -241,7 +241,7 @@ function Bookshelf() {
             {/* {title}
             {author}
             {oclc} */}
-            <h1>Welcome Back, {email}</h1>
+            <h1 className='title'>Welcome Back, {email}</h1>
 
             <h2>Currently Reading</h2>
             <div className='cont'>

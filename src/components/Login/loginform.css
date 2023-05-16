@@ -6,7 +6,8 @@
 .login-container{
     display: flex;
     justify-content: center;
-    height: 70vh;
+    height: 94vh;
+    background-color: #ABA8ED;
 }
 
 .login-btn {

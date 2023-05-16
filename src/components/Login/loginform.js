@@ -11,7 +11,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
 
   //error & navigation
-  const [error, setError] = useState (false);
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -33,11 +33,16 @@ const LoginForm = () => {
       });
   }
 
-  return <div className="login-container">
+  return (
+    <div className="login-container">
       <div className="cover">
         <h1>Login</h1>
 
-        {error?<p className="error-message">Email or Password Invalid</p>:""}
+        {error ? (
+          <p className="error-message">Email or Password Invalid</p>
+        ) : (
+          ""
+        )}
         <Form action="#" className="login-form" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -64,10 +69,12 @@ const LoginForm = () => {
           </Button>
         </Form>
 
-        <Link to="/register" preventScrollReset={true}>Register</Link>
-
+        <Link to="/register" preventScrollReset={true}>
+          Register
+        </Link>
       </div>
     </div>
+  );
 };
 
 export default LoginForm;

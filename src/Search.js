@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import './components/Search/search.css'
 
 const cookies = new Cookies();
 let dummy="test123456789"
@@ -131,7 +132,7 @@ function Search(){
     return(
         <div>
           <div>
-          <Form onSubmit={handleSubmit} className="d-flex">
+          <Form onSubmit={handleSubmit} className="d-flex search-bar">
           <Form.Control
             type="search"
             placeholder="Find a Book"
