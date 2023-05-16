@@ -1,5 +1,6 @@
 import {useState} from "react";
 import axios from "axios";
+import './components/Reflection/reflection.css'
 
 function Reflection() {
 
@@ -51,7 +52,7 @@ function Reflection() {
     return (
       <div>
         <div>
-          <h1>Bookly Reflection and Ratings</h1>
+          <h1 className="ref-title">Bookly Reflection and Ratings</h1>
         </div>
   
         <div class="container-fluid">

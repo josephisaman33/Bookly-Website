@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Cookies from 'universal-cookie';
+import './components/Search/search.css'
+
 const cookies = new Cookies();
 let dummy="test123456789"
 if (cookies.get("usearch")!==undefined){
@@ -77,7 +79,7 @@ function Search(){
     return(
         <div>
           <div>
-          <Form onSubmit={handleSubmit} className="d-flex">
+          <Form onSubmit={handleSubmit} className="d-flex search-bar">
           <Form.Control
             type="search"
             placeholder="Find a Book"

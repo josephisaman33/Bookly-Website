@@ -12,9 +12,9 @@
     box-shadow: 0.5vw 1.5vw 1.5vw #bbb;
   }
   
-
-
-
+  .title {
+    padding-bottom: 10px;
+  }
 
   .cont{
     display: flex;

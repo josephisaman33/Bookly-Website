@@ -1,6 +1,3 @@
-//login & registration: https://www.bezkoder.com/react-node-express-postgresql/
-//https://expressjs.com/en/guide/routing.html
-
 const express = require("express");
 const router = express.Router();
 
@@ -25,10 +22,14 @@ const User = require("../db/models/User");
 // Books.hasMany(Bookshelf, { onDelete: 'cascade' });
 // Bookshelf.belongsTo(Books);
 
-
 // Cryptography
 const jwt = require("jsonwebtoken");
 
+//login & registration provided by: https://www.bezkoder.com/react-node-express-postgresql/
+//https://expressjs.com/en/guide/routing.html
+//model querying: https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
+//bcrypt: https://www.npmjs.com/package/bcrypt
+//jwt: https://www.npmjs.com/package/jsonwebtoken
 // Routes for non-authenticated users.
 router.post("/login", async function (req, res) {
   let email = req.body.email;
@@ -107,7 +108,8 @@ router.post("/register", async function (req, res) {
             email: req.body.email,
             password: hash,
             phone: req.body.phone,
-            passwordfirstletter: password.charAt(0) + "*".repeat(password.length-1),
+            passwordfirstletter:
+              password.charAt(0) + "*".repeat(password.length - 1),
           });
 
           res.status(201).json({

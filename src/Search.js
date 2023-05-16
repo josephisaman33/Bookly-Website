@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import './components/Search/search.css'
 
 const cookies = new Cookies();
 let dummy="test123456789"
@@ -24,22 +25,15 @@ const addBook = (e) => {
   console.log(cookies.get('propname'))
   console.log(cookies.get('propauthor'))
   console.log("https://covers.openlibrary.org/b/oclc/"+cookies.get('propoclc')+"-L.jpg")
-  alert("ERROR 0");
   axios
   .post("http://localhost:50000/books", {
     entry: cookies.get('usearch'),
     title: cookies.get('propname'),
     author: cookies.get('propauthor'),
-    img_url: "https://covers.openlibrary.org/b/oclc/"+cookies.get('propoclc')+"-L.jpg"
+    img_url: "https://covers.openlibrary.org/b/isbn/"+cookies.get('propisbn')+"-L.jpg"
   })
   .then((response) => {
-    console.log(response);
-  })
-  .catch(function (err) {
-    console.error(err.message);
-    alert("ERROR 1");
-  })
-      axios
+    axios
       .post("http://localhost:50000/bookshelf", {
           entry: cookies.get('usearch'),
           userId: 1,
@@ -52,8 +46,14 @@ const addBook = (e) => {
       })
       .catch(function (err) {
           console.error(err.message);
-          alert("ERROR 2");
+          alert("Error 2");
       });
+    console.log(response);
+  })
+  .catch(function (err) {
+    console.error(err.message);
+    alert("ERROR 1");
+  })
       /*
     axios
       .post("http://localhost:50000/reflection", {
@@ -72,6 +72,7 @@ const addBook = (e) => {
       });
       */
 }
+//https://stackabuse.com/get-http-request-in-react/ was used in writing the GET/POST requests
 const App = () => {
   if (dummy!=="test123456789"){
     dummy=dummy.replace(" ", "+")
@@ -94,13 +95,13 @@ const App = () => {
               sameSite: 'Strict',
               secure: true,
             });
-            {typeof data.docs[0].oclc[0] !== 'undefined' ?
-            cookies.set('propoclc', data.docs[0].oclc[0], {
+            {typeof data.docs[0].isbn[0] !== 'undefined' ?
+            cookies.set('propisbn', data.docs[0].isbn[0], {
               path: '/',
               sameSite: 'Strict',
               secure: true,
             }) :
-            cookies.set('propoclc', data.docs[1].oclc[0], {
+            cookies.set('propisbn', data.docs[1].isbn[0], {
               path: '/',
               sameSite: 'Strict',
               secure: true,
@@ -165,7 +166,7 @@ function Search(){
     return(
         <div>
           <div>
-          <Form onSubmit={handleSubmit} className="d-flex">
+          <Form onSubmit={handleSubmit} className="d-flex search-bar">
           <Form.Control
             type="search"
             placeholder="Find a Book"

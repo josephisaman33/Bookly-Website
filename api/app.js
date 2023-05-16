@@ -1,3 +1,8 @@
+//imports from dependencies https://expressjs.com/en/api.html
+//https://expressjs.com/en/api.html
+//https://expressjs.com/en/resources/middleware/body-parser.html
+//react app generator: https://expressjs.com/en/starter/generator.html
+
 require("dotenv").config();
 
 var createError = require("http-errors");

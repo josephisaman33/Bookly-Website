@@ -17,6 +17,7 @@ function NavBar({authenticated}) {
   */
     return (
       <>
+        {/* Conditional operators made in reference to: https://react.dev/learn/conditional-rendering#conditional-ternary-operator-- */}
         <Navbar bg="DarkPurple" variant="dark" sticky="top">
           <Container>
             <Navbar.Brand href={authenticated?"bookshelf":"/"}>Bookly</Navbar.Brand>
