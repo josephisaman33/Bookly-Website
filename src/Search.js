@@ -40,11 +40,12 @@ const addBook = (e) => {
       })
       .then((response) => {
           console.log();
-          //window.location.reload();
+          window.location.reload();
 
       })
       .catch(function (err) {
           console.error(err.message);
+          alert("Error 2");
       });
     console.log(response);
   })
