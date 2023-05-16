@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
 
+  //useEffect and authentication route made in reference to: https://react.dev/reference/react/useEffect
   useEffect(() => {
     fetch("/api/checkToken").then((res) => {
       if (res.status === 200) {

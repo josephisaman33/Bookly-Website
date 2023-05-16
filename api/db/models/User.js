@@ -2,6 +2,7 @@ const db = require("../db");
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
 
+//Defining models made in reference to: https://sequelize.org/docs/v6/core-concepts/model-basics/
 let User = db.sequelize.define("user", {
   id: {
     type: Sequelize.INTEGER,
@@ -26,6 +27,7 @@ let User = db.sequelize.define("user", {
   },
 });
 
+//bycrpyt password check made in reference to: https://www.npmjs.com/package/bcrypt
 //Check Password
 User.prototype.isCorrectPassword = function (password, callback) {
   bcrypt.compare(password, this.password, function (err, result) {

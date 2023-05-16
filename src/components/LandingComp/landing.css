@@ -28,7 +28,8 @@ html {
     padding-right: 500px;
     height: 300px;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 20px;
+    display: inline-block;
 
 }
 

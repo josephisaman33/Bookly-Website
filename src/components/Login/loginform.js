@@ -6,6 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const LoginForm = () => {
+  //State made in reference to: https://react.dev/learn/updating-objects-in-state
   //login states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,6 +15,9 @@ const LoginForm = () => {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
 
+  //Axios post request made in reference to: https://axios-http.com/docs/post_example
+  //Forms made in reference to: https://react-bootstrap.github.io/forms/overview/
+  //and https://getbootstrap.com/docs/4.0/components/forms/#overview
   function handleSubmit(e) {
     e.preventDefault();
     console.log(email, password);
@@ -43,6 +47,8 @@ const LoginForm = () => {
         ) : (
           ""
         )}
+        {/* Forms made in reference to: https://react-bootstrap.github.io/forms/overview/
+            and https://getbootstrap.com/docs/4.0/components/forms/#overview */}
         <Form action="#" className="login-form" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>

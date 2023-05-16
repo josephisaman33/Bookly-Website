@@ -1,3 +1,6 @@
+//express middleware: https://expressjs.com/en/guide/using-middleware.html
+//jwt: https://www.npmjs.com/package/jsonwebtoken
+
 const jwt = require("jsonwebtoken");
 const User = require("./db/models/User");
 
