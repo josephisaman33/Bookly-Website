@@ -21,10 +21,21 @@ const handleSubmit = (event) => {
   console.log(cookies.get("usearch"))
 }
 const addBook = (e) => {
-  /*
-      axios
+  console.log(cookies.get('usearch'))
+  console.log(cookies.get('propname'))
+  console.log(cookies.get('propauthor'))
+  console.log("https://covers.openlibrary.org/b/oclc/"+cookies.get('propoclc')+"-L.jpg")
+  axios
+  .post("http://localhost:50000/books", {
+    entry: cookies.get('usearch'),
+    title: cookies.get('propname'),
+    author: cookies.get('propauthor'),
+    img_url: "https://covers.openlibrary.org/b/isbn/"+cookies.get('propisbn')+"-L.jpg"
+  })
+  .then((response) => {
+    axios
       .post("http://localhost:50000/bookshelf", {
-          entry: "Spider-Verse",
+          entry: cookies.get('usearch'),
           userId: 1,
           pages: e.target[0].value,
       })
@@ -35,9 +46,15 @@ const addBook = (e) => {
       })
       .catch(function (err) {
           console.error(err.message);
-          alert("An error occured...");
+          alert("Error 2");
       });
-      */
+    console.log(response);
+  })
+  .catch(function (err) {
+    console.error(err.message);
+    alert("ERROR 1");
+  })
+      /*
     axios
       .post("http://localhost:50000/reflection", {
           reflection: "HI",
@@ -53,8 +70,9 @@ const addBook = (e) => {
           console.error(err.message);
           alert("An error occured...");
       });
-      
+      */
 }
+//https://stackabuse.com/get-http-request-in-react/ was used in writing the GET/POST requests
 const App = () => {
   if (dummy!=="test123456789"){
     dummy=dummy.replace(" ", "+")
@@ -67,11 +85,27 @@ const App = () => {
           .then((response) => response.json())
           .then((data) => {
             setPosts(data);
-            cookies.set('Propname', data.docs[0].title, {
+            cookies.set('propname', data.docs[0].title, {
               path: '/',
               sameSite: 'Strict',
               secure: true,
             });
+            cookies.set('propauthor', data.docs[0].author_name[0], {
+              path: '/',
+              sameSite: 'Strict',
+              secure: true,
+            });
+            {typeof data.docs[0].isbn[0] !== 'undefined' ?
+            cookies.set('propisbn', data.docs[0].isbn[0], {
+              path: '/',
+              sameSite: 'Strict',
+              secure: true,
+            }) :
+            cookies.set('propisbn', data.docs[1].isbn[0], {
+              path: '/',
+              sameSite: 'Strict',
+              secure: true,
+            })}
           })
           .catch((error) => console.log(error));
       }, []);

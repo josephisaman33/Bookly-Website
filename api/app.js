@@ -8,9 +8,8 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var apiRouter = require("./routes/api");
-// var booksRouter = require("./routes/books");
+var booksRouter = require("./routes/books");
 var bookshelfRouter = require("./routes/bookshelf");
-var reflectionRouter = require("./routes/reflection");
 
 var app = express();
 
@@ -21,7 +20,6 @@ const db = require("./db/db");
 const User = require("./db/models/User");
 const Books = require("./db/models/Books");
 const Bookshelf = require("./db/models/Bookshelf");
-// const Reflection = require("./db/models/Reflection");
 
 async function initializeTables() {
   await db.sequelize.sync({ alter: true });
@@ -56,10 +54,9 @@ app.use(function (err, req, res, next) {
 });
 
 app.use("/api", apiRouter);
-// app.use("/books", booksRouter);
+app.use("/books", booksRouter);
 app.use("/bookshelf", bookshelfRouter);
-// app.use("/reflection", reflectionRouter);
-// app.use("/router", reflectionRouter);
+//app.use("/router", reflectionRouter);
 
 
 app.get("*", (req, res) => {
