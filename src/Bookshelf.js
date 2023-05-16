@@ -4,12 +4,6 @@ import './components/Bookshelf/cust.css'
 import axios from 'axios';
 
 
-//todo: form for adding book (similar to login)
-//get route for returning users books to bookshelf
-//post route for adding books to user's bookshelf
-
-
-
 function Bookshelf() {
 
     //Welcome Back Message
@@ -27,6 +21,7 @@ function Bookshelf() {
 
 
 
+    // Axios GET requests in this file made in reference to: https://axios-http.com/docs/example 
     // Get Books -- Currently Reading
     const [currReading, setCurrReading] = useState([]);
 
@@ -35,6 +30,7 @@ function Bookshelf() {
             setCurrReading(response.data);
         });
     }, []);
+
 
 
     // Get Books -- Finished Reading
@@ -48,66 +44,13 @@ function Bookshelf() {
 
 
 
-
-    // Example adds: Where the Crawdads Sing, Moby Dick
-    // Add Book
+    // Axios POST requests made in reference to: https://axios-http.com/docs/post_example
+    // Add book to your bookshelf
     const [entry, setEntry] = useState("");
     const [pages, setPages] = useState(0);
 
-    
-    // // FOR FINDING THE TITLE, AUTHOR, OCLC AND IMAGE LINK
-    // const [title, setTitle] = useState("")
-    // const [author, setAuthor] = useState("");
-    // const [oclc, setOclc] = useState("");
-    // const [oclcImageLink, setOclcImageLink] = useState("");
-
-
     function HandleAddBookSubmit(e) {
         e.preventDefault();
-
-        // // USE API TO SEARCH FOR TITLE, AUTHOR, OCLC, OCLCIMAGELNK
-        // let shit = entry.replaceAll(' ', '+');
-        // // useEffect(() => {    // I don't think useEffect is allowed here
-        //     fetch("https://openlibrary.org/search.json?title=" + shit)
-        //     .then(async (response) => {
-        //         let data = await response.json();
-        //         setTitle(data.docs[0].title_suggest);
-        //         setAuthor(data.docs[0].author_name[0]);
-
-        //         let i = 0;
-        //         //  Wanted to use a loop because some oclc's dont have images associated with them. so go thru until find one
-        //         // for (let i = 1; i <= data.docs[0].oclc.length; i++) {
-        //             setOclc(data.docs[0].oclc[i]);
-        //             setOclcImageLink("https://covers.openlibrary.org/b/oclc/" + oclc + "-L.jpg?default=false");
-        //             console.log(title, author, oclc, oclcImageLink);
-        //             // if (fetch(OclcImageLink) !== "not found") { break; }
-        //         // };
-
-        //     }); // end fetch
-        // // }, []);  // end useEffect
-
-
-
-        // // INSERT THE BOOK INTO BOOK DATABASE, IF NOT ALREADY THERE
-        // axios
-        //     .post("http://localhost:50000/books", {
-        //         entry: entry,
-        //         title: title,
-        //         author: author,
-        //         img_url: oclcImageLink
-        //     })
-        //     .then((response) => {
-        //         console.log(response);
-        //     })
-        //     .catch(function (err) {
-        //         console.error(err.message);
-        //     })
-
-
-
-
-
-        // ADD TO YOUR BOOKSHELF
         axios
         .post("http://localhost:50000/bookshelf", {
             entry: entry,
@@ -115,24 +58,13 @@ function Bookshelf() {
             pages: pages,
         })
         .then((response) => {
-            console.log();
+            console.log("Added '" + entry + "' to your bookshelf!");
             window.location.reload();
         })
         .catch(function (err) {
             console.error(err.message);
         });
-    }
-
-
-
-
-
-
-
-
-
-
-
+    } // end HandleAddBookSubmit
 
 
 
@@ -144,10 +76,11 @@ function Bookshelf() {
                 window.location.reload();
                 console.log("Delete Success");
             })
-    }
+    } // end removeBook
     
         
-    // // Update Bookmark
+
+    // Update Bookmark
     function handleUpdateBookmarkSubmit(e, id, onPage) {
         e.preventDefault();
         axios
@@ -161,78 +94,76 @@ function Bookshelf() {
             .catch(function (err) {
                 console.log(err.message);
             })
-    }
+    } // end handleUpdateBookmarkSubmit
 
 
+    // Mapping through array with input forms made in reference to:
+    // https://stackoverflow.com/questions/68511186/react-setting-specific-input-forms-when-mapping-through-array
     function BookCards({data}) {
         const [onPage, setOnPage] = useState(data.bookmark);
         return (<>
             <OverlayTrigger 
-                data={data}
-                key={data.id}
-                trigger="click" 
-                placement="right" 
-                overlay={
-                    <Popover id="popover-basic">
-                        <Popover.Header>
-                                <h4>{data.title}</h4>
-                                <h6>{data.author}</h6>
-                        </Popover.Header>
+              data={data}
+              key={data.id}
+              trigger="click" 
+              placement="right" 
+              overlay={
+                <Popover id="popover-basic">
+                    <Popover.Header>
+                        <h4>{data.title}</h4>
+                        <h6>{data.author}</h6>
+                    </Popover.Header>
 
-                        <Popover.Body>  
-                            {(() => {
-                                if( data.finished ) {
-                                    return (<>
-                                        <h6>Your Reflection</h6>
-                                        <p>Rating: {data.user_rating}/5<br></br>
-                                        {data.reflection}
-                                        </p>
-                                        <h6>Your Stats</h6>
-                                        <p>Completed!</p>
-                                        <p>Pages: {data.pages} <br/>
-                                        Date started: {data.started} <br/>
-                                        Date finished: {data.finished}</p>
-                                    </>
-                                    )
-                                } else {
-                                    return (<> 
-                                        Bookmark:
-                                        <div className='cont'>                     
-                                            <Form action='#' className='update-bm-form' onSubmit={(e) => handleUpdateBookmarkSubmit(e, data.id, onPage)} style={{width:"26%", height:"33px"}}>
-                                                <Form.Group className='mb-3' controlId='formBaiscUpdateBm'>
-                                                <Form.Control 
-                                                    type="text" 
-                                                    // size='sm'
-                                                    style={{height:"25px"}}
-                                                    value={onPage}
-                                                    onChange={(e) => setOnPage(e.target.value)} 
-                                                />
-                                                </Form.Group>
-                                            </Form>
-                                            /{data.pages}
-                                        </div> 
-                                        Date started: {data.started} <br/>
-                                        </>
-                                        
-                                    )
-                                }
-                                })()}
-                            
+                    <Popover.Body>  
+                      {(() => {
+                          if( data.finished ) {
+                              return (
+                                <>
+                                  <h6>Your Reflection</h6>
+                                  <p>Rating: {data.user_rating}/5<br></br>
+                                    {data.reflection}
+                                  </p>
+                                  <h6>Your Stats</h6>
+                                  <p>Completed!</p>
+                                  <p>Pages: {data.pages} <br/>
+                                  Date started: {data.started} <br/>
+                                  Date finished: {data.finished}</p>
+                                </>
+                              )
+                          } else {
+                              return (
+                                  <> 
+                                    Bookmark:
+                                    <div className='cont'>                     
+                                      <Form action='#' className='update-bm-form' onSubmit={(e) => handleUpdateBookmarkSubmit(e, data.id, onPage)} style={{width:"26%", height:"33px"}}>
+                                        <Form.Group className='mb-3' controlId='formBaiscUpdateBm'>
+                                          <Form.Control 
+                                            type="text" 
+                                            style={{height:"25px"}}
+                                            value={onPage}
+                                            onChange={(e) => setOnPage(e.target.value)} 
+                                          />
+                                        </Form.Group>
+                                      </Form>
+                                      /{data.pages}
+                                    </div> 
+                                    Date started: {data.started} <br/>
+                                  </>
+                              )
+                            }
+                        })()}
 
-                            <Button variant='danger' size='sm' type='delete' onClick={() => removeBook(data.id)}>Remove</Button>
-                        </Popover.Body>
-                    </Popover>
-                }
+                      <Button variant='danger' size='sm' type='delete' onClick={() => removeBook(data.id)}>Remove</Button>
+                    
+                    </Popover.Body>
+                </Popover>
+              }
             >
-
-                {/* <Card className="cust">
-                    <Card.Img variant="top" src={data.img_url} />
-                </Card> */}
-                <Image className="cust" src={data.img_url} />
+              <Image className="cust" src={data.img_url} />
 
             </OverlayTrigger>
-        </>)
-    }
+      </>)
+    } // end BookCards
     
 
 
