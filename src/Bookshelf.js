@@ -120,7 +120,7 @@ function Bookshelf() {
                               return (
                                 <>
                                   <h6>Your Reflection</h6>
-                                  <p>Rating: {data.user_rating}/5<br></br>
+                                  <p>Rating: {data.rating ? (data.rating + "/5") : ("Rate this book in Reflections!")}<br></br>
                                     {data.reflection}
                                   </p>
                                   <h6>Your Stats</h6>

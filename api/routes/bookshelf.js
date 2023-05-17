@@ -67,7 +67,8 @@ router.get("/finReading", async (req, res) => {
               bs.bookmark, 
               bs.pages, 
               bs.started,
-              bs.finished
+              bs.finished,
+              bs.rating
        FROM   books b 
               JOIN bookshelves bs 
                 ON b.id = bs.\"bookId\" 
