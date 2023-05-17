@@ -36,7 +36,7 @@ const addBook = (e) => {
     axios
       .post("http://localhost:50000/bookshelf", {
           entry: cookies.get('usearch'),
-          userId: 1,
+          userId: cookies.get('user_email'),
           pages: e.target[0].value,
       })
       .then((response) => {
@@ -165,7 +165,6 @@ const App = () => {
 function Search(){
     return(
         <div>
-          {cookies.get('user_email')}
           <div>
           <Form onSubmit={handleSubmit} className="d-flex search-bar">
           <Form.Control
