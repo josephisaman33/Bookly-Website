@@ -34,7 +34,7 @@ const addBook = (e) => {
   })
   .then((response) => {
     e.preventDefault();
-    let user_email=cookies.get('user_email')
+    let user_email=cookies.get('user_email');
         axios
         .post(`http://localhost:50000/bookshelf/${user_email}`, {
             entry: cookies.get('propname'),
@@ -42,7 +42,7 @@ const addBook = (e) => {
         })
         .then((response) => {
             console.log("Added '" + cookies.get('propname') + "' to your bookshelf!");
-            window.location.reload();
+            // window.location.reload();
         })
         .catch(function (err) {
             console.error(err.message);
