@@ -62,7 +62,7 @@
                        type: QueryTypes.UPDATE
                      })
 
-                 res.send("Updated book");
+                 res.send("Updated a book!");
              }
          })
      } catch (err) {
@@ -73,20 +73,20 @@
 
 
 
-     try {
-         await db.sequelize.query(
-             "INSERT INTO books (title, author, img_url) VALUES (:title, :author, :img_url)", {
-               replacements: { 
-                 title: title,
-                 author: author,
-                 img_url: img_url
-             },
-               type: QueryTypes.INSERT
-             })
-         res.json(req.body);
-     } catch (err) {
-         console.error(err.message);
-     }
+    //  try {
+    //      await db.sequelize.query(
+    //          "INSERT INTO books (title, author, img_url) VALUES (:title, :author, :img_url)", {
+    //            replacements: { 
+    //              title: title,
+    //              author: author,
+    //              img_url: img_url
+    //          },
+    //            type: QueryTypes.INSERT
+    //          })
+    //      res.json(req.body);
+    //  } catch (err) {
+    //      console.error(err.message);
+    //  }
  });
 
 

@@ -88,8 +88,64 @@ router.get("/:email/finReading", async (req, res) => {
 });
 
 
-// Adds a book to user's bookshelf
+
+// Adds a book to user's bookshelf if its already there
 router.post("/:email", async (req, res) => {
+  const body = req.body;
+  let user_email = req.params.email;
+  let entry = req.body.entry;
+  let title = req.body.title;
+  let pages = req.body.pages;
+  let author = req.body.author;
+  let img_url = req.body.img_url;
+
+  // Check if the book the user entered is in the database
+  try {
+    await db.sequelize.query(
+      `SELECT id 
+       FROM   books 
+       WHERE  LOWER(title) = LOWER(:title)`, {
+        replacements: { title: entry },
+        type: QueryTypes.SELECT
+      })
+    .then(async function (book) {
+      // If book not in database, add it to database
+      if ( book.length === 0) {
+        await db.sequelize.query(
+            "INSERT INTO books (title, author, img_url) VALUES (:title, :author, :img_url)", {
+              replacements: { 
+                title: title,
+                author: author,
+                img_url: img_url
+            },
+              type: QueryTypes.INSERT
+            })
+      } 
+    })
+    .then(async function (num) {
+      // Then add it to user's bookshelf
+      await db.sequelize.query(
+        `INSERT INTO bookshelves (entry, \"bookId\", \"userId\", pages, started) 
+         VALUES                  (:title, (SELECT id FROM books WHERE title = :title), (SELECT id FROM users WHERE email = :email), :pages, CURRENT_DATE)`, {
+          replacements: {
+            title: entry,
+            email: user_email,
+            pages: pages
+          },
+          type: QueryTypes.INSERT
+        })
+      res.send("Added to your bookshelf!");
+
+    })
+  } catch (err) {
+    console.error(err.message); 
+  }
+});
+
+
+
+// Adds a book to user's bookshelf
+router.post("/1/:email", async (req, res) => {
   const body = req.body;
   let user_email = req.params.email;
   let entry = req.body.entry;

@@ -20,74 +20,103 @@ const handleSubmit = (event) => {
   });
   console.log(cookies.get("usearch"))
 }
-const addBook = (e) => {
-  console.log(cookies.get('usearch'))
-  console.log(cookies.get('propname'))
-  console.log(cookies.get('propauthor'))
-  console.log("https://covers.openlibrary.org/b/oclc/"+cookies.get('propoclc')+"-L.jpg")
-  axios
-  .post("http://localhost:50000/books", {
-    entry: cookies.get('usearch'),
-    title: cookies.get('propname'),
-    author: cookies.get('propauthor'),
-    img_url: "https://covers.openlibrary.org/b/isbn/"+cookies.get('propisbn')+"-L.jpg"
-  })
-  .then((response) => {
-    e.preventDefault();
+
+
+
+  async function addBook(e) {
     let user_email=cookies.get('user_email');
-        axios
-        .post(`http://localhost:50000/bookshelf/${user_email}`, {
-            entry: cookies.get('propname'),
-            pages: e.target[0].value,
-        })
-        .then((response) => {
-            console.log("Added '" + cookies.get('propname') + "' to your bookshelf!");
-            // window.location.reload();
-        })
-        .catch(function (err) {
-            console.error(err.message);
-        });
-    /*
-    axios
-      .post("http://localhost:50000/bookshelf", {
-          entry: cookies.get('usearch'),
-          userId: cookies.get('user_email'),
-          pages: e.target[0].value,
+      const res2 = await axios
+      .post(`http://localhost:50000/bookshelf/${user_email}`, {
+          entry: cookies.get('propname'),
+          title: cookies.get('propname'),
+          pages: e.target[0].value,   
+          author: cookies.get('propauthor'),
+          img_url: "https://covers.openlibrary.org/b/isbn/"+cookies.get('propisbn')+"-L.jpg"
       })
       .then((response) => {
-          console.log();
-          window.location.reload();
-
+          console.log("Added '" + cookies.get('propname') + "' to your bookshelf!");
+          // window.location.reload();
       })
       .catch(function (err) {
           console.error(err.message);
-          alert("Error 2");
       });
-    console.log(response);
-    */
-  })
-  .catch(function (err) {
-    console.error(err.message);
-    alert("ERROR 1");
-  })
-      /*
-    axios
-      .post("http://localhost:50000/reflection", {
-          reflection: "HI",
-          rating: 5
-      })
-      .then((response) => {
-          console.log();
-          alert("Reflection Successful!");
-          window.location.reload();
+    }
+                                
+  
 
-      })
-      .catch(function (err) {
-          console.error(err.message);
-          alert("An error occured...");
-      });
-      */
-}
+
+
+// const ORIGINALaddBook = (e) => {
+//   console.log(cookies.get('usearch'))
+//   console.log(cookies.get('propname'))
+//   console.log(cookies.get('propauthor'))
+//   console.log("https://covers.openlibrary.org/b/oclc/"+cookies.get('propoclc')+"-L.jpg")
+//   axios
+//   .post("http://localhost:50000/books", {
+//     entry: cookies.get('usearch'),
+//     title: cookies.get('propname'),
+//     author: cookies.get('propauthor'),
+//     img_url: "https://covers.openlibrary.org/b/isbn/"+cookies.get('propisbn')+"-L.jpg"
+//   })
+//   .then((response) => {
+//     e.preventDefault();
+//     console.log(response);
+//     let user_email=cookies.get('user_email');
+//         axios
+//         .post(`http://localhost:50000/bookshelf/${user_email}`, {
+//             entry: cookies.get('propname'),
+//             pages: e.target[0].value,
+//         })
+//         .then((response) => {
+//             console.log("Added '" + cookies.get('propname') + "' to your bookshelf!");
+//             // window.location.reload();
+//         })
+//         .catch(function (err) {
+//             console.error(err.message);
+//         });
+//     /*
+//     axios
+//       .post("http://localhost:50000/bookshelf", {
+//           entry: cookies.get('usearch'),
+//           userId: cookies.get('user_email'),
+//           pages: e.target[0].value,
+//       })
+//       .then((response) => {
+//           console.log();
+//           window.location.reload();
+
+//       })
+//       .catch(function (err) {
+//           console.error(err.message);
+//           alert("Error 2");
+//       });
+//     console.log(response);
+//     */
+//   })
+//   .catch(function (err) {
+//     console.error(err.message);
+//     alert("ERROR 1");
+//   })
+//       /*
+//     axios
+//       .post("http://localhost:50000/reflection", {
+//           reflection: "HI",
+//           rating: 5
+//       })
+//       .then((response) => {
+//           console.log();
+//           alert("Reflection Successful!");
+//           window.location.reload();
+
+//       })
+//       .catch(function (err) {
+//           console.error(err.message);
+//           alert("An error occured...");
+//       });
+//       */
+// }
+
+
 //https://stackabuse.com/get-http-request-in-react/ was used in writing the GET/POST requests
 const App = () => {
   if (dummy!=="test123456789"){
