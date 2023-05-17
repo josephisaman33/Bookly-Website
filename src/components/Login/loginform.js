@@ -23,6 +23,11 @@ const LoginForm = () => {
   function handleSubmit(e) {
     e.preventDefault();
     console.log(email, password);
+    cookies.set('user_email',email, {
+      path: '/',
+      sameSite: 'Strict',
+      secure: true,
+    });
     axios
       .post("/api/login", {
         email: email,
@@ -30,11 +35,6 @@ const LoginForm = () => {
       })
       .then(function (response) {
         console.log(response);
-        cookies.set('userid',email, {
-          path: '/',
-          sameSite: 'Strict',
-          secure: true,
-        });
         navigate("/bookshelf");
         window.location.reload();
       })
