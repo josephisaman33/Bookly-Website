@@ -23,7 +23,7 @@ function Reflection() {
     function handleUpdateReflection(e, id, rating, reflection) {
       e.preventDefault();
       axios
-          .put(`http://localhost:50000/bookshelf/reflections/${id}`, {
+          .put(`http://localhost:50000/reflections/${id}`, {
               rating: rating,
               reflection: reflection
           })
