@@ -20,16 +20,8 @@ Bookshelf.belongsTo(User);
 
 
 
+///////////// REQUESTS /////////////
 
-//check if user is authenticated using isauthenticated middleware             
-//pass in user id from isAuthenticated middleware               ????? Ask CC about this
-//for book id, pass in from body
-
-
-// THE BULLSHIT STARTS HERE
-
-
-// TO DO: Limit to get all books from a specific user
 // Get currently reading books
 router.get("/:email/currReading", async (req, res) => {
   let user_email = req.params.email;
@@ -63,7 +55,6 @@ router.get("/:email/currReading", async (req, res) => {
 });
 
 
-// TO DO: Limit to get all books from a specific user
 // Get completed books
 router.get("/:email/finReading", async (req, res) => {
   let user_email = req.params.email;
@@ -97,7 +88,6 @@ router.get("/:email/finReading", async (req, res) => {
 });
 
 
-// TO DO figure our how to pass in user id. Ask CC
 // Adds a book to user's bookshelf
 router.post("/:email", async (req, res) => {
   const body = req.body;
@@ -206,69 +196,6 @@ router.put("/:id", async (req, res) => {
       console.error(err.message);
   }
 })
-
-
-
-
-
-///////////////////  REFLECTIONS SECTION  /////////////////// 
-// Get reflections
-router.get("/reflections/:email", async (req, res) => {
-  let user_email = req.params.email;
-  try {
-    let ok = await db.sequelize.query(
-     `SELECT bs.id,
-             b.title,
-             b.author,
-             b.img_url,
-             bs.rating,
-             bs.reflection
-      FROM   books b
-             JOIN bookshelves bs
-               ON b.id = bs.\"bookId\"
-             JOIN users u
-               ON u.id = bs."userId"
-      WHERE  u.email = :user_email
-             AND bs.finished IS NOT NULL
-      ORDER BY bs.finished DESC,
-               bs.id DESC `, {
-      replacements: { user_email: user_email },
-      type: QueryTypes.SELECT
-       }
-    );
-    res.json(ok);
-  } catch (err) {
-    console.error(err.message);
-  }
-});
-
-
-
-// Update a reflection
-router.put("/reflections/:id", async (req, res) => {
-  const body = req.body;
-  let id = req.params.id;
-  let rating = req.body.rating;
-  let reflection = req.body.reflection;
-  try {
-    await db.sequelize.query(
-      `UPDATE bookshelves 
-       SET    rating = :rating, 
-              reflection = :reflection 
-       WHERE id = :id`, {
-        replacements: {
-          id: id,
-          rating: rating,
-          reflection: reflection
-        },
-        type: QueryTypes.UPDATE
-      })
-      res.json(body);
-    } catch (err) {
-      console.error(err.message);
-    }
-})
-
 
 
 

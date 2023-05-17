@@ -1,119 +1,103 @@
-import {useState} from "react";
-import axios from "axios";
-import './components/Reflection/reflection.css'
+import {React, useEffect, useState} from 'react'
+import {Table, Image, Dropdown, DropdownButton, Button} from 'react-bootstrap'
+import './components/Bookshelf/cust.css'
+import axios from 'axios';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
 
 function Reflection() {
+    
+  let user_email = cookies.get("user_email");
 
-    const [reflection, setReflection] = useState("");
-    const [rating, setRating] = useState(1);
-    const [bookName, setBookName] = useState("");
-    const [ratingAvg, setRatingAvg] = useState(null);
+    const [reflectionsData, setReflectionsData] = useState([]);
 
-    const onSubmit = function () {
-        if (reflection == "") {
-            alert("please input your reflection!");
-            return;
-        }
-        if (bookName == "") {
-            alert("please input your favorite!");
-            return;
-        }
-        axios.post("http://localhost:8080/api/reflectionAndrating/submit",
-            {reflection,rating,bookName})
-            .then(response => {
-                alert("success");
-                axios.post("http://localhost:8080/api/reflectionAndrating/getRatingAvg",
-                    bookName, {
-                        headers: {
-                            "Content-Type": "text/plain"
-                        }
-                    })
-                    .then(response => {
-                        setRatingAvg(response.data);
-                    })
-                    .catch(() => {
-                            alert("fail");
-                        }
-                    );
-            })
-            .catch(() => {
-                alert("fail");
-                }
-            );
+    useEffect(() => {
+        axios.get(`http://localhost:50000/reflections/${user_email}`).then((response) => {
+            setReflectionsData(response.data);
+        });
+    }, []);
+
+
+    // Update Reflection
+    function handleUpdateReflection(e, id, rating, reflection) {
+      e.preventDefault();
+      axios
+          .put(`http://localhost:50000/bookshelf/reflections/${id}`, {
+              rating: rating,
+              reflection: reflection
+          })
+          .then((response) => {
+              console.log("Updated Reflection and/or Rating");
+          })
+          .catch(function (err) {
+              console.log(err.message);
+          })
     }
 
-    function ReSubmit() {
-        setReflection("");
-        setRating(1);
-        setBookName("");
-        setRatingAvg(null);
+
+
+    function ReflectionRows({data}) {
+        const ratingChoices = [5,4,3,2,1,0];
+        const [rating, setRating] = useState(data.rating);
+        const [reflection, setReflection] = useState(data.reflection);
+        
+        return (
+          <tr style={{verticalAlign:"middle"}} >
+            <td style={{width:"20%"}}><Image className='cust' src={data.img_url} /></td>
+            <td style={{width:"15%"}}>{data.title}<br/>{data.author}</td>
+            <td style={{width:"15%"}}>
+              <DropdownButton id="dropdown-basic-button" title={rating ? ("Rated: " + rating) : ("Rate this book!")} size="lg">
+                {ratingChoices.map(ratingChoice => 
+                  <Dropdown.Item key={ratingChoice} href="#" onClick={() => setRating(ratingChoice)}>
+                    {ratingChoice}
+                  </Dropdown.Item>
+                )}
+              </DropdownButton>
+            </td>
+            <td style={{width:"50%"}}>
+              <textarea
+                className="form-control"
+                placeholder="Start writing your reflections here!"
+                style={{height:"175px"}}
+                value={reflection ? (reflection) : ""}
+                onChange={event => setReflection(event.target.value)}>
+              </textarea>
+                  
+              <Button 
+                variant='primary' 
+                size='sm' 
+                type='submit' 
+                onClick={(e) => handleUpdateReflection(e, data.id, rating, reflection)}
+              >
+                  Update!
+                </Button>
+
+            </td>
+          </tr>
+        )
     }
+
+
+    
+
 
     return (
-      <div>
-        <div>
-          <h1 className="ref-title">Bookly Reflection and Ratings</h1>
+        <div style={{margin: "3vw"}}>
+          <h1>Bookly Reflection and Ratings</h1>
+
+          <Table striped borderless>
+            <tbody>
+
+                {reflectionsData.map(data => 
+                    <ReflectionRows data={data} key={data.id}/>
+                )}
+              
+            </tbody>
+        </Table>
+        
         </div>
-  
-        <div class="container-fluid">
-          <div class="row-fluid">
-            <div class="span4"></div>
-            <div class="span4">
-              <h2></h2>
+    )
+}
 
-                {ratingAvg == null ?
-                <div>
-                    <h3>Book description</h3>
-                  <br />
-                  <input type="hidden" name="id" value="1" />
-                  <label>Reflection：</label>
-                  <textarea
-                    name="reflection"
-                    class="form-control"
-                    placeholder="give your reflection"
-                    value={reflection}
-                    onChange={event => setReflection(event.target.value)}>
-                  </textarea>
-                  <label>Rating：</label>
-                  <select name="stars" class="form-control"
-                          value={rating}
-                          onChange={event => setRating(event.target.value)}>
-                    <option value="1">☆</option>
-                    <option value="2">☆☆</option>
-                    <option value="3">☆☆☆</option>
-                    <option value="4">☆☆☆☆</option>
-                    <option value="5">☆☆☆☆☆</option>
-                  </select>
-                  <label>Which one book did you read？</label>
-                  <textarea
-                    name="name"
-                    class="form-control"
-                    placeholder="give your book"
-                    value={bookName}
-                    onChange={event => setBookName(event.target.value)}>
-
-                  </textarea>
-                  <br />
-                <button onClick={onSubmit}>Submit</button>
-                </div>
-                    :
-                <div>
-                    <br/><br/><br/><br/><br/>
-                    <h2>BookName：{bookName}</h2><br/>
-                    <div style={{fontSize: 30}}>
-                    Average rating:&nbsp;&nbsp;<span style={{color: "red", fontSize: 50}}>{ratingAvg}</span>
-                        <br/><br/><br/>
-                    </div>
-                    <button onClick={ReSubmit}>ReSubmit</button>
-                </div>
-                }
-
-            </div>
-            <div class="span4"></div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-  
-  export default Reflection;
+export default Reflection;

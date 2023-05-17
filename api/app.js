@@ -15,6 +15,7 @@ var logger = require("morgan");
 var apiRouter = require("./routes/api");
 var booksRouter = require("./routes/books");
 var bookshelfRouter = require("./routes/bookshelf");
+var reflectionsRouter = require("./routes/reflections");
 
 var app = express();
 
@@ -61,6 +62,7 @@ app.use(function (err, req, res, next) {
 app.use("/api", apiRouter);
 app.use("/books", booksRouter);
 app.use("/bookshelf", bookshelfRouter);
+app.use("/reflections", reflectionsRouter);
 //app.use("/router", reflectionRouter);
 
 
