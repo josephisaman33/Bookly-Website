@@ -85,17 +85,19 @@ function Reflection() {
     return (
         <div style={{margin: "3vw"}}>
           <h1>Bookly Reflection and Ratings</h1>
-
-          <Table striped borderless>
-            <tbody>
-
+          { reflectionsData.length === 0 ?
+            <div className='center-screen'>
+              <h1>Finish a book to start writing your reflections!</h1>
+            </div>
+          :
+            <Table striped borderless>
+              <tbody>
                 {reflectionsData.map(data => 
                     <ReflectionRows data={data} key={data.id}/>
                 )}
-              
-            </tbody>
-        </Table>
-        
+              </tbody>
+            </Table>
+          }
         </div>
     )
 }

@@ -20,3 +20,16 @@
     display: flex;
     flex-wrap: wrap;
   }
+
+
+  /*  Copied and slightly edited from:
+   *  https://stackoverflow.com/questions/31217268/center-div-on-the-middle-of-screen 
+  */
+  .center-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    margin-top: -120px;
+  }

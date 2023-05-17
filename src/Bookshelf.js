@@ -170,10 +170,21 @@ function Bookshelf() {
 
     return (
         <div style={{margin: "1.5vw"}}>
+            {currReading.length === 0  && finReading.length === 0 ? 
+                <div>
+                    <h1 className='title'>Welcome, {email}</h1>
+                        <div className='center-screen'>
+                            <h1>You haven't added any books!<br/>
+                            Head on over to the {<Button href="search" variant="primary" className='join-button' size="lg"> Search Page </Button>} to start logging!</h1>
+
+                        </div>
+                </div> 
+            : 
+            <>
             <h1 className='title'>Welcome Back, {email}</h1>
             <h2>Currently Reading</h2>
             <div className='cont'>
-                <OverlayTrigger 
+                {/* <OverlayTrigger 
                     trigger="click" 
                     placement="right" 
                     overlay={
@@ -218,7 +229,7 @@ function Bookshelf() {
                     <Button variant="outline-secondary" size="lg">
                         Add a book
                     </Button>
-                </OverlayTrigger>
+                </OverlayTrigger> */}
                 
                 {currReading.map(data => 
                     <BookCards data={data} key={data.id} onSubmit={handleUpdateBookmarkSubmit}/>
@@ -230,7 +241,7 @@ function Bookshelf() {
                 {finReading.map(data => 
                     <BookCards data={data} key={data.id} onSubmit={handleUpdateBookmarkSubmit}/>
                 )}
-            </div>
+            </div></>}
 
         </div>
 
