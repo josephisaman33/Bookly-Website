@@ -1,0 +1,20 @@
+.emailrow {
+    padding-top: 6px;
+}
+
+.notifrow {
+    padding-bottom: 8px;
+}
+
+.accheader {
+    padding-top: 10px;
+}
+
+#toast {
+    --bs-toast-bg: #5552A1;
+    color: white;
+}
+
+#acc-container {
+    background-color: #ABA8ED!important;
+}
