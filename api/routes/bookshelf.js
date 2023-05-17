@@ -50,7 +50,8 @@ router.get("/:email/currReading", async (req, res) => {
               JOIN users u
                 ON u.id = bs."userId"
        WHERE  u.email = :user_email 
-       ORDER BY id ASC`, {
+              AND bs.finished IS NULL  
+      ORDER BY id ASC`, {
         replacements: { user_email: user_email },
         type: QueryTypes.SELECT
        }

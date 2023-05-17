@@ -173,7 +173,7 @@ function Bookshelf() {
             <h1 className='title'>Welcome Back, {email}</h1>
             <h2>Currently Reading</h2>
             <div className='cont'>
-                <OverlayTrigger 
+                {/* <OverlayTrigger 
                     trigger="click" 
                     placement="right" 
                     overlay={
@@ -218,7 +218,7 @@ function Bookshelf() {
                     <Button variant="outline-secondary" size="lg">
                         Add a book
                     </Button>
-                </OverlayTrigger>
+                </OverlayTrigger> */}
                 
                 {currReading.map(data => 
                     <BookCards data={data} key={data.id} onSubmit={handleUpdateBookmarkSubmit}/>
