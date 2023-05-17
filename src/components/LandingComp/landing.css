@@ -18,18 +18,19 @@ html {
 }
 
 .info-header {
+    padding-top: 100px;
     font-size: 3rem;
     padding-bottom: 80px;
 }
 
 .info {
     padding-top: 50px;
-    padding-left: 500px;
-    padding-right: 500px;
+    width:800px;
     height: 300px;
     text-align: center;
     font-size: 20px;
     display: inline-block;
+    margin: 0 auto;
 
 }
 
@@ -38,7 +39,11 @@ html {
 }
 
 .button-container {
-    padding-top: 240px;
+    padding-top: 120px;
     padding-bottom: 120px;
     height: 160px;
+}
+
+.space {
+    padding: 40px;
 }

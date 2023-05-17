@@ -155,4 +155,85 @@ router.get("/account", isAuthenticated, function (req, res) {
     });
 });
 
+// Notification Frequency Reminders
+router.get("/schedule/job1", isAuthenticated, (req, res) => {
+  User.findOne({
+    where: {
+      email: req.email,
+    },
+  })
+    .then((user) => {
+      user.notificationjob1 = !user.notificationjob1;
+      user.save();
+      res.send("Job 1 scheduled task triggered");
+    })
+    .catch((_) => {
+      res.sendStatus(400);
+    });
+});
+
+router.get("/schedule/job2", isAuthenticated, (req, res) => {
+  User.findOne({
+    where: {
+      email: req.email,
+    },
+  })
+    .then((user) => {
+      user.notificationjob2 = !user.notificationjob2;
+      user.save();
+      res.send("Job 2 scheduled task triggered");
+    })
+    .catch((_) => {
+      res.sendStatus(400);
+    });
+});
+
+router.get("/schedule/job3", isAuthenticated, (req, res) => {
+  User.findOne({
+    where: {
+      email: req.email,
+    },
+  })
+    .then((user) => {
+      user.notificationjob3 = !user.notificationjob3;
+      user.save();
+      res.send("Job 3 scheduled task triggered");
+    })
+    .catch((_) => {
+      res.sendStatus(400);
+    });
+});
+
+router.get("/schedule/job4", isAuthenticated, (req, res) => {
+  User.findOne({
+    where: {
+      email: req.email,
+    },
+  })
+    .then((user) => {
+      user.notificationjob4 = !user.notificationjob4;
+      user.save();
+      res.send("Job 4 scheduled task triggered");
+    })
+    .catch((_) => {
+      res.sendStatus(400);
+    });
+});
+
+router.get("/schedule/job5", isAuthenticated, (req, res) => {
+  User.findOne({
+    where: {
+      email: req.email,
+    },
+  })
+    .then((user) => {
+      user.notificationjob5 = !user.notificationjob5;
+      user.save();
+      res.send("Job 5 scheduled task triggered");
+    })
+    .catch((_) => {
+      res.sendStatus(400);
+    });
+});
+
 module.exports = router;

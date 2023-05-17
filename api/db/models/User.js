@@ -25,6 +25,31 @@ let User = db.sequelize.define("user", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  notificationjob1: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  notificationjob2: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  notificationjob3: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  notificationjob4: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  notificationjob5: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
 });
 
 //bycrpyt password check made in reference to: https://www.npmjs.com/package/bcrypt

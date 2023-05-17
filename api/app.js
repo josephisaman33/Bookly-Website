@@ -32,9 +32,97 @@ async function initializeTables() {
 }
 
 initializeTables().then((res) => {
-  console.log(
-    "[Sequelize]: Successfully synced tables."
-  );
+  console.log("[Sequelize]: Successfully synced tables.");
+});
+
+const { sendNotification } = require("./routes/NotifFreq");
+const cron = require("node-cron");
+
+//Notification Check
+
+//5 Minutes
+cron.schedule("*/5 * * * *", () => {
+  User.findAll({
+    where: {
+      notificationjob1: true,
+    },
+  })
+    .then((users) => {
+      users.forEach((user) => {
+        sendNotification(user);
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
+
+//1 Hour
+cron.schedule("* 1 * * *", () => {
+  User.findAll({
+    where: {
+      notificationjob2: true,
+    },
+  })
+    .then((users) => {
+      users.forEach((user) => {
+        sendNotification(user);
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
+
+//12 Hours
+cron.schedule("* 12 * * *", () => {
+  User.findAll({
+    where: {
+      notificationjob3: true,
+    },
+  })
+    .then((users) => {
+      users.forEach((user) => {
+        sendNotification(user);
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
+
+//1 Day
+cron.schedule("* * 1 * *", () => {
+  User.findAll({
+    where: {
+      notificationjob4: true,
+    },
+  })
+    .then((users) => {
+      users.forEach((user) => {
+        sendNotification(user);
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
+
+//2 Days
+cron.schedule("* * 2 * *", () => {
+  User.findAll({
+    where: {
+      notificationjob5: true,
+    },
+  })
+    .then((users) => {
+      users.forEach((user) => {
+        sendNotification(user);
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 //view engine setup
@@ -64,7 +152,6 @@ app.use("/books", booksRouter);
 app.use("/bookshelf", bookshelfRouter);
 app.use("/reflections", reflectionsRouter);
 //app.use("/router", reflectionRouter);
-
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/index.html"));
