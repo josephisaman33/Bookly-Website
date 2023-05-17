@@ -30,15 +30,11 @@ function Landing() {
         <Row>
           <Col>
             <p className="info" data-aos="fade-left">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-              blandit turpis cursus in hac habitasse. Eget dolor morbi non arcu.
-              Dolor sit amet consectetur adipiscing elit. Quis blandit turpis
-              cursus in hac. Lectus nulla at volutpat diam ut venenatis tellus
-              in metus. Mi tempus imperdiet nulla malesuada pellentesque elit
-              eget gravida. Aliquam ultrices sagittis orci a scelerisque purus
-              semper. Quisque non tellus orci ac auctor. Amet dictum sit amet
-              justo donec enim diam.
+            Bookly is your way of keeping yourself accountable with your reading.
+            Bookly tracks how far you are in your current book and how many books
+            you’ve read with the service. Additionally, it recommends you new books
+            to read after you finish, and it reminds you to not slack off!
+            Scroll down below to get started.
             </p>
           </Col>
         </Row>
