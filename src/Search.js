@@ -165,6 +165,7 @@ const App = () => {
 function Search(){
     return(
         <div>
+          {cookies.get('user_email')}
           <div>
           <Form onSubmit={handleSubmit} className="d-flex search-bar">
           <Form.Control
