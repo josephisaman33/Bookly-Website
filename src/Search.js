@@ -33,6 +33,20 @@ const addBook = (e) => {
     img_url: "https://covers.openlibrary.org/b/isbn/"+cookies.get('propisbn')+"-L.jpg"
   })
   .then((response) => {
+    e.preventDefault();
+        axios
+        .post("http://localhost:50000/bookshelf/"+cookies.get('user_email'), {
+            entry: cookies.get('propname'),
+            pages: e.target[0].value,
+        })
+        .then((response) => {
+            console.log("Added '" + cookies.get('propname') + "' to your bookshelf!");
+            window.location.reload();
+        })
+        .catch(function (err) {
+            console.error(err.message);
+        });
+    /*
     axios
       .post("http://localhost:50000/bookshelf", {
           entry: cookies.get('usearch'),
@@ -49,6 +63,7 @@ const addBook = (e) => {
           alert("Error 2");
       });
     console.log(response);
+    */
   })
   .catch(function (err) {
     console.error(err.message);
