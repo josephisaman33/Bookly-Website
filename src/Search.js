@@ -34,8 +34,9 @@ const addBook = (e) => {
   })
   .then((response) => {
     e.preventDefault();
+    let user_email=cookies.get('user_email')
         axios
-        .post("http://localhost:50000/bookshelf/"+cookies.get('user_email'), {
+        .post(`http://localhost:50000/bookshelf/${user_email}`, {
             entry: cookies.get('propname'),
             pages: e.target[0].value,
         })
