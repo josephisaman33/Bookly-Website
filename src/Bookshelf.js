@@ -8,6 +8,7 @@ const cookies = new Cookies();
 
 function Bookshelf() {
 
+    let user_email = cookies.get("user_email");
     //Welcome Back Message
     const [email, setEmail] = useState("");
 
@@ -15,7 +16,6 @@ function Bookshelf() {
         fetch("/api/account").then(async (response) => {
           if (response.status === 200) {
             let account = await response.json();
-            // console.log(account.user);
             setEmail(account.user.email);
           }
         });
@@ -28,7 +28,7 @@ function Bookshelf() {
     const [currReading, setCurrReading] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:50000/bookshelf/currReading").then((response) => {
+        axios.get(`http://localhost:50000/bookshelf/${user_email}/currReading`).then((response) => {
             setCurrReading(response.data);
         });
     }, []);
@@ -39,7 +39,7 @@ function Bookshelf() {
     const [finReading, setFinReading] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:50000/bookshelf/finReading").then((response) => {
+        axios.get(`http://localhost:50000/bookshelf/${user_email}/finReading`).then((response) => {
             setFinReading(response.data);
         });
     }, []);
@@ -54,9 +54,8 @@ function Bookshelf() {
     function HandleAddBookSubmit(e) {
         e.preventDefault();
         axios
-        .post("http://localhost:50000/bookshelf", {
+        .post(`http://localhost:50000/bookshelf/${user_email}`, {
             entry: entry,
-            userId: 1,
             pages: pages,
         })
         .then((response) => {
@@ -171,11 +170,7 @@ function Bookshelf() {
 
     return (
         <div style={{margin: "1.5vw"}}>
-            {/* {title}
-            {author}
-            {oclc} */}
             <h1 className='title'>Welcome Back, {email}</h1>
-
             <h2>Currently Reading</h2>
             <div className='cont'>
                 <OverlayTrigger 

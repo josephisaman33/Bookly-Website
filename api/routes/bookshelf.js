@@ -26,10 +26,13 @@ Bookshelf.belongsTo(User);
 //for book id, pass in from body
 
 
+// THE BULLSHIT STARTS HERE
+
 
 // TO DO: Limit to get all books from a specific user
 // Get currently reading books
-router.get("/currReading", async (req, res) => {
+router.get("/:email/currReading", async (req, res) => {
+  let user_email = req.params.email;
   try {
     let ok = await db.sequelize.query(
       `SELECT bs.id, 
@@ -38,13 +41,17 @@ router.get("/currReading", async (req, res) => {
               b.img_url, 
               bs.bookmark, 
               bs.pages, 
-              bs.started 
+              bs.started,
+              bs.finished,
+              bs.rating
        FROM   books b 
               JOIN bookshelves bs 
-                ON b.id = bs.\"bookId\" 
-       WHERE bs.\"userId\" = 1 
-             AND bs.finished IS NULL 
+                ON b.id = bs."bookId"
+              JOIN users u
+                ON u.id = bs."userId"
+       WHERE  u.email = :user_email 
        ORDER BY id ASC`, {
+        replacements: { user_email: user_email },
         type: QueryTypes.SELECT
        }
     );
@@ -57,7 +64,8 @@ router.get("/currReading", async (req, res) => {
 
 // TO DO: Limit to get all books from a specific user
 // Get completed books
-router.get("/finReading", async (req, res) => {
+router.get("/:email/finReading", async (req, res) => {
+  let user_email = req.params.email;
   try {
     let ok = await db.sequelize.query(
       `SELECT bs.id, 
@@ -72,9 +80,12 @@ router.get("/finReading", async (req, res) => {
        FROM   books b 
               JOIN bookshelves bs 
                 ON b.id = bs.\"bookId\" 
-       WHERE  bs.\"userId\" = 1 
+              JOIN users u
+                ON u.id = bs."userId"
+       WHERE  u.email = :user_email 
               AND bs.finished IS NOT NULL  
        ORDER BY id ASC`, {        
+        replacements: { user_email: user_email },
         type: QueryTypes.SELECT
        }
     );
@@ -87,10 +98,10 @@ router.get("/finReading", async (req, res) => {
 
 // TO DO figure our how to pass in user id. Ask CC
 // Adds a book to user's bookshelf
-router.post("/", async (req, res) => {
+router.post("/:email", async (req, res) => {
   const body = req.body;
+  let user_email = req.params.email;
   let entry = req.body.entry;
-  let userId = req.body.userId;
   let pages = req.body.pages;
 
   // Check if the book the user entered is in the database
@@ -108,11 +119,11 @@ router.post("/", async (req, res) => {
         let bookId = book[0].id;
         await db.sequelize.query(
           `INSERT INTO bookshelves (entry, \"bookId\", \"userId\", pages, started) 
-           VALUES                  (:title, :bookId, :userId, :pages, CURRENT_DATE)`, {
+           VALUES                  (:title, :bookId, (SELECT id FROM users WHERE email = :email), :pages, CURRENT_DATE)`, {
             replacements: {
               title: entry,
               bookId: bookId,
-              userId: userId,
+              email: user_email,
               pages: pages
             },
             type: QueryTypes.INSERT
@@ -201,7 +212,8 @@ router.put("/:id", async (req, res) => {
 
 ///////////////////  REFLECTIONS SECTION  /////////////////// 
 // Get reflections
-router.get("/reflections", async (req, res) => {
+router.get("/reflections/:email", async (req, res) => {
+  let user_email = req.params.email;
   try {
     let ok = await db.sequelize.query(
      `SELECT bs.id,
@@ -213,10 +225,13 @@ router.get("/reflections", async (req, res) => {
       FROM   books b
              JOIN bookshelves bs
                ON b.id = bs.\"bookId\"
-      WHERE  bs.\"userId\" = 1
+             JOIN users u
+               ON u.id = bs."userId"
+      WHERE  u.email = :user_email
              AND bs.finished IS NOT NULL
       ORDER BY bs.finished DESC,
                bs.id DESC `, {
+      replacements: { user_email: user_email },
       type: QueryTypes.SELECT
        }
     );
@@ -252,10 +267,6 @@ router.put("/reflections/:id", async (req, res) => {
       console.error(err.message);
     }
 })
-
-
-
-
 
 
 

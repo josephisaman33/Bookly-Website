@@ -2,7 +2,8 @@ import {React, useEffect, useState} from 'react'
 import {Table, Image, Dropdown, DropdownButton, Button} from 'react-bootstrap'
 import './components/Bookshelf/cust.css'
 import axios from 'axios';
-
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 //todo: form for adding book (similar to login)
 //get route for returning users books to bookshelf
@@ -11,11 +12,13 @@ import axios from 'axios';
 
 
 function Trial() {
+    
+  let user_email = cookies.get("user_email");
 
     const [reflectionsData, setReflectionsData] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:50000/bookshelf/reflections").then((response) => {
+        axios.get(`http://localhost:50000/bookshelf/reflections/${user_email}`).then((response) => {
             setReflectionsData(response.data);
         });
     }, []);
