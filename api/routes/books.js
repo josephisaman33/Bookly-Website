@@ -28,6 +28,9 @@
 
  router.post("/", async (req, res) => {
      let entry = req.body.entry;
+     let title = req.body.title;
+     let author = req.body.author;
+     let img_url = req.body.img_url;
      try {
           //Checking if book is already in the database
          await db.sequelize.query(
@@ -37,10 +40,7 @@
              })
          .then(async function (rtrnBooks) {
             //If the book isn't in the database, add it
-             let title = req.body.title;
-             let author = req.body.author;
-             let img_url = req.body.img_url;
-             if ( rtrnBooks.length === 0 && title !== "") {
+             if ( rtrnBooks.length === 0) {
                  await db.sequelize.query(
                      "INSERT INTO books (title, author, img_url) VALUES (:title, :author, :img_url) ", {
                        replacements: { 
@@ -51,7 +51,7 @@
                        type: QueryTypes.INSERT
                      })
                  res.json("Added a book!");
-             } else if (title !== "") {
+             } else {
                  await db.sequelize.query(
                      "UPDATE books SET title = :title, author = :author, img_url = :img_url WHERE title = :title", {
                        replacements: { 
