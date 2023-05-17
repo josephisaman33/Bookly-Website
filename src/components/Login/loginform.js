@@ -4,6 +4,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 const LoginForm = () => {
   //State made in reference to: https://react.dev/learn/updating-objects-in-state
@@ -28,6 +30,11 @@ const LoginForm = () => {
       })
       .then(function (response) {
         console.log(response);
+        cookies.set('userid',email, {
+          path: '/',
+          sameSite: 'Strict',
+          secure: true,
+        });
         navigate("/bookshelf");
         window.location.reload();
       })
